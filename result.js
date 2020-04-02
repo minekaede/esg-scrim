@@ -1,5 +1,6 @@
 $(function() {
     $("#drop-zone").on("drop", function(e) {
+        console.log("File Droped!");
         e.preventDefault();
         var $result_zone = $("#result-zone");
         var files = e.originalEvent.dataTransfer.files[0];
