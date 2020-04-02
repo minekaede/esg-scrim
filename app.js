@@ -44,8 +44,9 @@ $(function() {
         var reader = new FileReader();
         reader.onload = function(e) {
             console.log(e.target.result);
-            if (validURL(getParam("csv"))) {
-                console.log(getParam("csv"));
+            var url = decodeURI(getParam("csv"));
+            if (validURL(url)) {
+                console.log(url);
             }
         }
         reader.readAsText(files, "UTF-8");
