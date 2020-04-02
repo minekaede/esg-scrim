@@ -4,9 +4,8 @@ $(function() {
         var $result_zone = $("#result-zone");
         var files = e.originalEvent.dataTransfer.files[0];
         var reader = new FileReader();
-        console.log("Test!");
-        reader.onload = function(event) {
-            console.log("File loaded!");
+        reader.onload = function(e) {
+            console.log(e.target.result);
         }
         reader.readAsText(files, "UTF-8");
     }).on("dragenter", function() {
