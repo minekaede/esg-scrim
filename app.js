@@ -44,11 +44,11 @@ $(function() {
         var reader = new FileReader();
         reader.onload = function(e) {
             console.log(e.target.result);
-            var url = decodeURI(getParam("csv"));
-            console.log(url);
-            if (validURL(url)) {
-                console.log(url);
-            }
+        }
+        var url = decodeURI(getParam("csv"));
+        console.log(url);
+        if (validURL(url)) {
+            console.log("true!");
         }
         reader.readAsText(files, "UTF-8");
     }).on("dragenter", function() {
