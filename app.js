@@ -45,6 +45,7 @@ $(function() {
         reader.onload = function(e) {
             console.log(e.target.result);
             var url = decodeURI(getParam("csv"));
+            console.log(url);
             if (validURL(url)) {
                 console.log(url);
             }
