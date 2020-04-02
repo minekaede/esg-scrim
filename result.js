@@ -5,7 +5,7 @@ $(function() {
         var files = e.originalEvent.dataTransfer.files[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-            $result_zone.html(e.target.result);
+            $result_zone.html("<p>File loaded!</p>");
         }
     }).on("dragenter", function() {
         return false;
