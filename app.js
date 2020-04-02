@@ -43,13 +43,15 @@ $(function() {
         var files = e.originalEvent.dataTransfer.files[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-            console.log(e.target.result);
+            // console.log(e.target.result);
         }
         var url = decodeURI(getParam("csv"));
-        console.log(url);
-        if (validURL(url)) {
-            console.log("true!");
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            console.log(xhr.responseText);
         }
+        xhr.open("get", url, true);
+        xhr.send(null);
         reader.readAsText(files, "UTF-8");
     }).on("dragenter", function() {
         return false;
