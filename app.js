@@ -18,7 +18,7 @@ function validURL(str) {
     return !!pattern.test(str);
 }
 
-function convertCsv(text) {
+function convertCsvText(text) {
     /*
     マップリスト
     Googleフォームのマップリストと同じ順番になっている必要あり
@@ -36,22 +36,28 @@ function convertCsv(text) {
     return data;
 }
 
+function loadResult(text) {
+    console.log(text);
+}
+
 $(function() {
+    var csv_url = getParam("url");
+    if (csv_url) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            loadResult(xhr.responseText);
+        }
+        xhr.open("get", decodeURI(csv_url), true);
+        xhr.send(null);
+    }
     $("#drop-zone").on("drop", function(e) {
         e.preventDefault();
         var $result_zone = $("#result-zone");
         var files = e.originalEvent.dataTransfer.files[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-            // console.log(e.target.result);
+            loadResult(e.target.result);
         }
-        var url = decodeURI(getParam("csv"));
-        var xhr = new XMLHttpRequest();
-        xhr.onload = function() {
-            console.log(xhr.responseText);
-        }
-        xhr.open("get", url, true);
-        xhr.send(null);
         reader.readAsText(files, "UTF-8");
     }).on("dragenter", function() {
         return false;
