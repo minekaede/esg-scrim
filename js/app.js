@@ -14,7 +14,7 @@ const map_list = [
 
 function convertCsvText(text) {
     // csvテキストを2次元配列に変換
-    var arr = $.csv.toArray(text);
+    var arr = $.csv.toArrays(text);
     console.log(arr);
 
 
