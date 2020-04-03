@@ -44,6 +44,16 @@ function makeDict(text) { // csvテキストを処理して連想配列を返す
         assist: [], // アシスト
         death: [] // デス
     };
+
+    var score_own = 0
+    var score_opponent = 0
+    for (var game_id = 0; game_id < arr.length; game_id++) {
+        score_own = 0
+        score_opponent = 0
+
+    }
+
+    console.log(arr);
     return data;
 }
 
