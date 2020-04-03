@@ -1,4 +1,6 @@
-function drawGameTable(data) {
+var data; // csvから取得したデータ
+
+function drawGameTable() {
     $("#game").append(
         $("<thead></thead>").append(
             $("<tr></tr>")
@@ -38,7 +40,7 @@ function drawGameTable(data) {
     $("#game").DataTable();
 }
 
-function drawRoundTable(data) {
+function drawRoundTable() {
     $("#round").append(
         $("<thead></thead>").append(
             $("<tr></tr>")
@@ -64,7 +66,7 @@ function drawRoundTable(data) {
     $("#round").DataTable();
 }
 
-function drawScoreTable(data) {
+function drawScoreTable() {
     $("#score").append(
         $("<thead></thead>").append(
             $("<tr></tr>")
@@ -94,11 +96,15 @@ function drawScoreTable(data) {
     $("#score").DataTable();
 }
 
+function initAllTable() {
+    $("#game").empty();
+    $("#round").empty();
+    $("#score").empty();
+}
+
 function loadResult(text) {
-    var data = makeDict(text);
-    drawGameTable(data);
-    drawRoundTable(data);
-    drawScoreTable(data);
+    data = makeDict(text);
+    drawGameTable();
 }
 
 $(function() {
@@ -131,5 +137,17 @@ $(function() {
         return false;
     }).on("dragover", function() {
         return false;
+    });
+    $("#select-game-item").on("click", function() {
+        initAllTable();
+        drawGameTable();
+    });
+    $("#select-round-item").on("click", function() {
+        initAllTable();
+        drawRoundTable();
+    });
+    $("#select-score-item").on("click", function() {
+        initAllTable();
+        drawScoreTable();
     });
 });
