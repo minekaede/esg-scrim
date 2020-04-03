@@ -1,4 +1,6 @@
 const DATATABLE_SETTINGS = {
+    ordering: true,
+    paging: true,
     pageLength: 10,
     lengthMenu: [[5, 10, 20, 50, 100], [5, 10, 20, 50, 100],
     language: {
