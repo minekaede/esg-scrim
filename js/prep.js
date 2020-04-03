@@ -13,7 +13,6 @@ function makeDict(text) { // csvテキストを処理して連想配列を返す
         "ヴィラ"
     ]
     var arr = $.csv.toArrays(text); // csvテキストを2次元配列に変換 by jquery-csv
-    console.log(arr);
     arr.shift(); // ヘッダー(1行目)を削除
     var data = {};
     data["game"] = { // 試合ごとのデータ
