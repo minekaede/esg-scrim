@@ -35,7 +35,7 @@ function drawGameTable(data) {
         );
     }
     $("#game").append(tbody);
-    $("#game").DataTable();
+    $("#game").DataTable(DATATABLESETTINGS);
 }
 
 function loadResult(text) {
