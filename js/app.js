@@ -38,9 +38,67 @@ function drawGameTable(data) {
     $("#game").DataTable();
 }
 
+function drawRoundTable(data) {
+    $("#round").append(
+        $("<thead></thead>").append(
+            $("<tr></tr>")
+            .append($("<th></th>").text("試合ID"))
+            .append($("<th></th>").text("ラウンド数"))
+            .append($("<th></th>").text("攻防"))
+            .append($("<th></th>").text("防衛地点"))
+            .append($("<th></th>").text("勝敗"))
+        )
+    );
+    var tbody = $("<tbody></tbody>");
+    for (var i = 0; i < data["round"]["game_id"].length; i++) {
+        tbody.append(
+            $("<tr></tr>")
+            .append($("<th></th>").text(String(data["game"]["game_id"][i])))
+            .append($("<th></th>").text(String(data["game"]["num"][i])))
+            .append($("<th></th>").text(String(data["game"]["od"][i])))
+            .append($("<th></th>").text(String(data["game"]["point"][i])))
+            .append($("<th></th>").text(String(data["game"]["wl"][i])))
+        );
+    }
+    $("#round").append(tbody);
+    $("#round").DataTable();
+}
+
+function drawScoreTable(data) {
+    $("#score").append(
+        $("<thead></thead>").append(
+            $("<tr></tr>")
+            .append($("<th></th>").text("試合ID"))
+            .append($("<th></th>").text("チーム名"))
+            .append($("<th></th>").text("UplayID"))
+            .append($("<th></th>").text("スコア"))
+            .append($("<th></th>").text("キル"))
+            .append($("<th></th>").text("アシスト"))
+            .append($("<th></th>").text("デス"))
+        )
+    );
+    var tbody = $("<tbody></tbody>");
+    for (var i = 0; i < data["score"]["game_id"].length; i++) {
+        tbody.append(
+            $("<tr></tr>")
+            .append($("<th></th>").text(String(data["game"]["game_id"][i])))
+            .append($("<th></th>").text(String(data["game"]["team"][i])))
+            .append($("<th></th>").text(String(data["game"]["uplayid"][i])))
+            .append($("<th></th>").text(String(data["game"]["score"][i])))
+            .append($("<th></th>").text(String(data["game"]["kill"][i])))
+            .append($("<th></th>").text(String(data["game"]["assist"][i])))
+            .append($("<th></th>").text(String(data["game"]["death"][i])))
+        );
+    }
+    $("#score").append(tbody);
+    $("#score").DataTable();
+}
+
 function loadResult(text) {
     var data = makeDict(text);
     drawGameTable(data);
+    drawRoundTable(data);
+    drawScoreTable(data);
 }
 
 $(function() {
