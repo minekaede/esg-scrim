@@ -53,11 +53,11 @@ function drawRoundTable(data) {
     for (var i = 0; i < data["round"]["game_id"].length; i++) {
         tbody.append(
             $("<tr></tr>")
-            .append($("<th></th>").text(String(data["game"]["game_id"][i])))
-            .append($("<th></th>").text(String(data["game"]["num"][i])))
-            .append($("<th></th>").text(String(data["game"]["od"][i])))
-            .append($("<th></th>").text(String(data["game"]["point"][i])))
-            .append($("<th></th>").text(String(data["game"]["wl"][i])))
+            .append($("<th></th>").text(String(data["round"]["game_id"][i])))
+            .append($("<th></th>").text(String(data["round"]["num"][i])))
+            .append($("<th></th>").text(String(data["round"]["od"][i])))
+            .append($("<th></th>").text(String(data["round"]["point"][i])))
+            .append($("<th></th>").text(String(data["round"]["wl"][i])))
         );
     }
     $("#round").append(tbody);
@@ -81,13 +81,13 @@ function drawScoreTable(data) {
     for (var i = 0; i < data["score"]["game_id"].length; i++) {
         tbody.append(
             $("<tr></tr>")
-            .append($("<th></th>").text(String(data["game"]["game_id"][i])))
-            .append($("<th></th>").text(String(data["game"]["team"][i])))
-            .append($("<th></th>").text(String(data["game"]["uplayid"][i])))
-            .append($("<th></th>").text(String(data["game"]["score"][i])))
-            .append($("<th></th>").text(String(data["game"]["kill"][i])))
-            .append($("<th></th>").text(String(data["game"]["assist"][i])))
-            .append($("<th></th>").text(String(data["game"]["death"][i])))
+            .append($("<th></th>").text(String(data["score"]["game_id"][i])))
+            .append($("<th></th>").text(String(data["score"]["team"][i])))
+            .append($("<th></th>").text(String(data["score"]["uplayid"][i])))
+            .append($("<th></th>").text(String(data["score"]["score"][i])))
+            .append($("<th></th>").text(String(data["score"]["kill"][i])))
+            .append($("<th></th>").text(String(data["score"]["assist"][i])))
+            .append($("<th></th>").text(String(data["score"]["death"][i])))
         );
     }
     $("#score").append(tbody);
