@@ -44,11 +44,13 @@ function loadResult(text) {
 }
 
 $(function() {
+    /*
     $.extend($.fn.dataTable.defaults, {
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.10.20/i18n/Japanese.json"
         }
     });
+    */
     var csv_url = getParam("url");
     if (csv_url) {
         var xhr = new XMLHttpRequest();
