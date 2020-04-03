@@ -1,6 +1,6 @@
 function loadResult(text) {
     var data = makeDict(text);
-    var thead = $("#game").createTHead();
+    var thead = $("#game").createTHead;
     var row = thead.insertRow(0);
     row.insertCell(0).innerHTML = "試合ID"
     row.insertCell(1).innerHTML = "ゲーム開始時の日付"
@@ -14,7 +14,7 @@ function loadResult(text) {
     row.insertCell(9).innerHTML = "試合結果";
     row.insertCell(10).innerHTML = "自チームスコア";
     row.insertCell(11).innerHTML = "相手チームスコア";
-    var tbody = $("#game").createTBody();
+    var tbody = $("#game").createTBody;
     var row = tbody.insertRow(0);
     for (var i = 0; i < data["game"]["game_id"].length; i++) {
         row.insertCell(i).textContent = String(data["game"]["game_id"]);
