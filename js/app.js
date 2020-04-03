@@ -1,36 +1,46 @@
+function drawGameTable(data) {
+    $("#game").append(
+        $("<thead></thead>").append(
+            $("<tr></tr>")
+            .append($("<th></th>").text("試合ID"))
+            .append($("<th></th>").text("ゲーム開始時の日付"))
+            .append($("<th></th>").text("相手のチーム名"))
+            .append($("<th></th>").text("マップ"))
+            .append($("<th></th>").text("先攻"))
+            .append($("<th></th>").text("自チーム攻撃側オペレーターBAN"))
+            .append($("<th></th>").text("相手チーム攻撃側オペレーターBAN"))
+            .append($("<th></th>").text("自チーム防衛側オペレーターBAN"))
+            .append($("<th></th>").text("相手チーム防衛側オペレーターBAN"))
+            .append($("<th></th>").text("試合結果"))
+            .append($("<th></th>").text("自チームスコア"))
+            .append($("<th></th>").text("相手チームスコア"))
+        )
+    );
+    var tbody = $("<tbody></tbody>");
+    for (var i = 0; i < data["game"]["game_id"].length; i++) {
+        tbody.append(
+            $("<tr></tr>")
+            .append($("<th></th>").text(String(data["game"]["game_id"][i])))
+            .append($("<th></th>").text(String(data["game"]["date"][i])))
+            .append($("<th></th>").text(String(data["game"]["opponent"][i])))
+            .append($("<th></th>").text(String(data["game"]["map"][i])))
+            .append($("<th></th>").text(String(data["game"]["offense_first"][i])))
+            .append($("<th></th>").text(String(data["game"]["offense_ban_own"][i])))
+            .append($("<th></th>").text(String(data["game"]["offense_ban_opponent"][i])))
+            .append($("<th></th>").text(String(data["game"]["defense_ban_own"][i])))
+            .append($("<th></th>").text(String(data["game"]["defense_ban_opponent"][i])))
+            .append($("<th></th>").text(String(data["game"]["result"][i])))
+            .append($("<th></th>").text(String(data["game"]["score_own"][i])))
+            .append($("<th></th>").text(String(data["game"]["score_opponent"][i])))
+        );
+    }
+    $("#game").append(tbody);
+    $("#game").DataTable();
+}
+
 function loadResult(text) {
     var data = makeDict(text);
-    var thead = $("#game").createTHead;
-    var row = thead.insertRow(0);
-    row.insertCell(0).innerHTML = "試合ID"
-    row.insertCell(1).innerHTML = "ゲーム開始時の日付"
-    row.insertCell(2).innerHTML = "相手のチーム名";
-    row.insertCell(3).innerHTML = "マップ";
-    row.insertCell(4).innerHTML = "先攻";
-    row.insertCell(5).innerHTML = "自チーム攻撃側オペレーターBAN";
-    row.insertCell(6).innerHTML = "相手チーム攻撃側オペレーターBAN";
-    row.insertCell(7).innerHTML = "自分チーム防衛側オペレーターBAN";
-    row.insertCell(8).innerHTML = "相手チーム防衛側オペレーターBAN";
-    row.insertCell(9).innerHTML = "試合結果";
-    row.insertCell(10).innerHTML = "自チームスコア";
-    row.insertCell(11).innerHTML = "相手チームスコア";
-    var tbody = $("#game").createTBody;
-    var row = tbody.insertRow(0);
-    for (var i = 0; i < data["game"]["game_id"].length; i++) {
-        row.insertCell(i).textContent = String(data["game"]["game_id"]);
-        row.insertCell(i).textContent = String(data["game"]["date"]);
-        row.insertCell(i).textContent = String(data["game"]["opponent"]);
-        row.insertCell(i).textContent = String(data["game"]["map"]);
-        row.insertCell(i).textContent = String(data["game"]["offense_first"]);
-        row.insertCell(i).textContent = String(data["game"]["offense_ban_own"]);
-        row.insertCell(i).textContent = String(data["game"]["offense_ban_opponent"]);
-        row.insertCell(i).textContent = String(data["game"]["defense_ban_own"]);
-        row.insertCell(i).textContent = String(data["game"]["defense_ban_opponent"]);
-        row.insertCell(i).textContent = String(data["game"]["result"]);
-        row.insertCell(i).textContent = String(data["game"]["score_own"]);
-        row.insertCell(i).textContent = String(data["game"]["score_opponent"]);
-    }
-    $("#game").DataTable();
+    drawGameTable(data);
 }
 
 $(function() {
