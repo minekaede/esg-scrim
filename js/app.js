@@ -97,9 +97,9 @@ function drawScoreTable() {
 }
 
 function initAllTable() {
-    $("#game").empty();
-    $("#round").empty();
-    $("#score").empty();
+    $("#game").empty().draw();
+    $("#round").empty().draw();
+    $("#score").empty().draw();
 }
 
 function loadResult(text) {
