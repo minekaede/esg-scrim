@@ -96,15 +96,13 @@ function drawScoreTable() {
     $("#score").DataTable();
 }
 
-function initAllTable() {
-    $("#game").empty().draw();
-    $("#round").empty().draw();
-    $("#score").empty().draw();
-}
-
 function loadResult(text) {
     data = makeDict(text);
     drawGameTable();
+    drawRoundTable();
+    drawScoreTable();
+    $("#round").style.visibility = "hidden";
+    $("#score").style.visibility = "hidden";
 }
 
 $(function() {
@@ -139,15 +137,18 @@ $(function() {
         return false;
     });
     $("#select-game-item").on("click", function() {
-        initAllTable();
-        drawGameTable();
+        $("#game").style.visibility = "visible";
+        $("#round").style.visibility = "hidden";
+        $("#score").style.visibility = "hidden";
     });
     $("#select-round-item").on("click", function() {
-        initAllTable();
-        drawRoundTable();
+        $("#game").style.visibility = "hidden";
+        $("#round").style.visibility = "visible";
+        $("#score").style.visibility = "hidden";
     });
     $("#select-score-item").on("click", function() {
-        initAllTable();
-        drawScoreTable();
+        $("#game").style.visibility = "hidden";
+        $("#round").style.visibility = "hidden";
+        $("#score").style.visibility = "visible";
     });
 });
