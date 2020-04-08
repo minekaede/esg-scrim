@@ -3,9 +3,7 @@ var table; // 表示中の表
 
 function drawGameTable() {
     /* #table-area内に表を設置 */
-    if ($("#table-area").length) { // 空でないとき
-        $("#table-area").empty();
-    }
+    initResult();
     var gTable = document.createElement("table");
     gTable.classList.add("table", "table-bordered", "table-hover");
     gTable.setAttribute("id", "game");
@@ -54,9 +52,7 @@ function drawGameTable() {
 
 function drawRoundTable() {
     /* #table-area内に表を設置 */
-    if ($("#table-area").length) { // 空でないとき
-        $("#table-area").empty();
-    }
+    initResult();
     var rTable = document.createElement("table");
     rTable.classList.add("table", "table-bordered", "table-hover");
     rTable.setAttribute("id", "round");
@@ -93,9 +89,7 @@ function drawRoundTable() {
 
 function drawScoreTable() {
     /* #table-area内に表を設置 */
-    if ($("#table-area").length) { // 空でないとき
-        $("#table-area").empty();
-    }
+    initResult();
     var sTable = document.createElement("table");
     sTable.classList.add("table", "table-bordered", "table-hover");
     sTable.setAttribute("id", "score");
@@ -132,6 +126,12 @@ function drawScoreTable() {
     $("#score tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
         table.search($(this).text()).draw();
     });
+}
+
+function initResult() {
+    if ($("#table-area").length) { // #table-areaが空でないとき
+        $("#table-area").empty();
+    }
 }
 
 function loadResult(text) {
