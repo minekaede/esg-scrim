@@ -124,6 +124,7 @@ function drawScoreTable() {
 }
 
 function loadResult(text) {
+    $("#dd-panel").hide();
     data = makeDict(text);
     drawGameTable();
 }
