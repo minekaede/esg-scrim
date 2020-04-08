@@ -1,4 +1,5 @@
 var data; // csvから取得したデータ
+var table; // 表示中の表
 
 function drawGameTable() {
     /* #table-area内に表を設置 */
@@ -45,7 +46,7 @@ function drawGameTable() {
         );
     }
     $("#game").append(tbody);
-    $("#game").DataTable();
+    table = $("#game").DataTable();
 }
 
 function drawRoundTable() {
@@ -81,7 +82,7 @@ function drawRoundTable() {
         );
     }
     $("#round").append(tbody);
-    $("#round").DataTable();
+    table = $("#round").DataTable();
 }
 
 function drawScoreTable() {
@@ -121,7 +122,7 @@ function drawScoreTable() {
         );
     }
     $("#score").append(tbody);
-    $("#score").DataTable();
+    table = $("#score").DataTable();
 }
 
 function loadResult(text) {
@@ -162,5 +163,8 @@ $(function() {
     });
     $("#select-score-item").on("click", function() {
         drawScoreTable();
+    });
+    $("#game tbody").on("click", "th", function() {
+        console.log(table.column(this).data());
     });
 });
