@@ -35,7 +35,7 @@ function drawGameTable() {
             .append($("<th></th>").text(String(data["game"]["date"][i])))
             .append($("<th></th>").text(String(data["game"]["opponent"][i])))
             .append($("<th></th>").text(String(data["game"]["map"][i])))
-            .append($("<th></th>").text(String(data["game"]["offense_first"][i])))
+            .append($("<th></th>").text(String(data["game"]["offense_first"][i]) == "own" ? "自" : "相"))
             .append($("<th></th>").text(String(data["game"]["offense_ban_own"][i])))
             .append($("<th></th>").text(String(data["game"]["offense_ban_opponent"][i])))
             .append($("<th></th>").text(String(data["game"]["defense_ban_own"][i])))
