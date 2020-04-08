@@ -1,6 +1,15 @@
 var data; // csvから取得したデータ
 
 function drawGameTable() {
+    /* #table-area内に表を設置 */
+    if ($("#table-area").length) { // 空でないとき
+        $("#table-area").empty();
+    }
+    var gTable = document.createElement("table");
+    gTable.classList.add("table", "table-bordered", "table-hover");
+    gTable.setAttribute("id", "game");
+    $("#table-area").append(gTable);
+
     $("#game").append(
         $("<thead></thead>").append(
             $("<tr></tr>")
@@ -41,6 +50,15 @@ function drawGameTable() {
 }
 
 function drawRoundTable() {
+    /* #table-area内に表を設置 */
+    if ($("#table-area").length) { // 空でないとき
+        $("#table-area").empty();
+    }
+    var rTable = document.createElement("table");
+    rTable.classList.add("table", "table-bordered", "table-hover");
+    rTable.setAttribute("id", "round");
+    $("#table-area").append(rTable);
+
     $("#round").append(
         $("<thead></thead>").append(
             $("<tr></tr>")
@@ -67,6 +85,15 @@ function drawRoundTable() {
 }
 
 function drawScoreTable() {
+    /* #table-area内に表を設置 */
+    if ($("#table-area").length) { // 空でないとき
+        $("#table-area").empty();
+    }
+    var sTable = document.createElement("table");
+    sTable.classList.add("table", "table-bordered", "table-hover");
+    sTable.setAttribute("id", "score");
+    $("#table-area").append(sTable);
+
     $("#score").append(
         $("<thead></thead>").append(
             $("<tr></tr>")
@@ -99,11 +126,6 @@ function drawScoreTable() {
 function loadResult(text) {
     data = makeDict(text);
     drawGameTable();
-    drawRoundTable();
-    drawScoreTable();
-    $("#round_wrapper").hide();
-    $("#score_wrapper").hide();
-    $("#dd-panel").hide();
 }
 
 $(function() {
@@ -131,18 +153,12 @@ $(function() {
         return false;
     });
     $("#select-game-item").on("click", function() {
-        $("#game_wrapper").show();
-        $("#round_wrapper").hide();
-        $("#score_wrapper").hide();
+        drawGameTable();
     });
     $("#select-round-item").on("click", function() {
-        $("#game_wrapper").hide();
-        $("#round_wrapper").show();
-        $("#score_wrapper").hide();
+        drawRoundTable();
     });
     $("#select-score-item").on("click", function() {
-        $("#game_wrapper").hide();
-        $("#round_wrapper").hide();
-        $("#score_wrapper").show();
+        drawScoreTable();
     });
 });
