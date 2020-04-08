@@ -31,7 +31,7 @@ function drawGameTable() {
     for (var i = 0; i < data["game"]["game_id"].length; i++) {
         tbody.append(
             $("<tr></tr>")
-            .append($("<th></th>").text("#" + String(data["game"]["game_id"][i])))
+            .append($("<th></th>").text(String(data["game"]["game_id"][i])))
             .append($("<th></th>").text(String(data["game"]["date"][i])))
             .append($("<th></th>").text(String(data["game"]["opponent"][i])))
             .append($("<th></th>").text(String(data["game"]["map"][i])))
@@ -73,7 +73,7 @@ function drawRoundTable() {
     for (var i = 0; i < data["round"]["game_id"].length; i++) {
         tbody.append(
             $("<tr></tr>")
-            .append($("<th></th>").text("#" + String(data["round"]["game_id"][i])))
+            .append($("<th></th>").text(String(data["round"]["game_id"][i])))
             .append($("<th></th>").text(String(data["round"]["num"][i])))
             .append($("<th></th>").text(String(data["round"]["od"][i])))
             .append($("<th></th>").text(String(data["round"]["point"][i])))
@@ -111,7 +111,7 @@ function drawScoreTable() {
     for (var i = 0; i < data["score"]["game_id"].length; i++) {
         tbody.append(
             $("<tr></tr>")
-            .append($("<th></th>").text("#" + String(data["score"]["game_id"][i])))
+            .append($("<th></th>").text(String(data["score"]["game_id"][i])))
             .append($("<th></th>").text(String(data["score"]["team"][i])))
             .append($("<th></th>").text(String(data["score"]["uplayid"][i])))
             .append($("<th></th>").text(String(data["score"]["score"][i])))
