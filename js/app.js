@@ -23,7 +23,6 @@ function drawGameTable() {
             .append($("<th></th>").text("攻撃オペBAN(相)"))
             .append($("<th></th>").text("防衛オペBAN(自)"))
             .append($("<th></th>").text("防衛オペBAN(相)"))
-            .append($("<th></th>").text("結果"))
             .append($("<th></th>").text("スコア(自)"))
             .append($("<th></th>").text("スコア(相)"))
         )
@@ -41,7 +40,6 @@ function drawGameTable() {
             .append($("<th></th>").text(String(data["game"]["offense_ban_opponent"][i])))
             .append($("<th></th>").text(String(data["game"]["defense_ban_own"][i])))
             .append($("<th></th>").text(String(data["game"]["defense_ban_opponent"][i])))
-            .append($("<th></th>").text(String(data["game"]["result"][i])))
             .append($("<th></th>").text(String(data["game"]["score_own"][i])))
             .append($("<th></th>").text(String(data["game"]["score_opponent"][i])))
         );
