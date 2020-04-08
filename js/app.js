@@ -164,7 +164,7 @@ $(function() {
     $("#select-score-item").on("click", function() {
         drawScoreTable();
     });
-    $("#game tbody tr").on("click", "th", function() {
-        console.log($(this));
+    $("#game tbody tr").on("dblclick", "th", function() {
+        console.log($(this).text());
     });
 });
