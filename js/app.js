@@ -155,16 +155,17 @@ $(function() {
     }).on("dragover", function() {
         return false;
     });
-    $("#select-game-item").on("click", function() {
-        drawGameTable();
-    });
-    $("#select-round-item").on("click", function() {
-        drawRoundTable();
-    });
-    $("#select-score-item").on("click", function() {
-        drawScoreTable();
-    });
-    $("#game tbody tr").on("dblclick", "th", function() {
-        console.log($(this).text());
-    });
+});
+
+$("#select-game-item").on("click", function() {
+    drawGameTable();
+});
+$("#select-round-item").on("click", function() {
+    drawRoundTable();
+});
+$("#select-score-item").on("click", function() {
+    drawScoreTable();
+});
+$("#game tbody tr").on("dblclick", "th", function() {
+    console.log($(this).text());
 });
