@@ -47,8 +47,8 @@ function drawGameTable() {
     }
     $("#game").append(tbody);
     table = $("#game").DataTable();
-    $("#game tbody tr th").on("dblclick", function() {
-        console.log($(this).text());
+    $("#game tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+        $("#game_filter label input").val($(this).text());
     });
 }
 
@@ -86,6 +86,9 @@ function drawRoundTable() {
     }
     $("#round").append(tbody);
     table = $("#round").DataTable();
+    $("#round tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+        $("#round_filter label input").val($(this).text());
+    });
 }
 
 function drawScoreTable() {
@@ -126,6 +129,9 @@ function drawScoreTable() {
     }
     $("#score").append(tbody);
     table = $("#score").DataTable();
+    $("#score tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+        $("#score_filter label input").val($(this).text());
+    });
 }
 
 function loadResult(text) {
