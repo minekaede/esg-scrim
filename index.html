@@ -11,7 +11,7 @@
 
 	<body>
 		<div class="container">
-			<div class="panel panel-default" id="dd-panel">
+			<div class="col-xl panel panel-default" id="dd-panel">
 				<div class="panel-heading"><strong>Upload Files</strong><small>Excelsior Gaming R6S Scrim Log.csv</small></div>
 				<div class="panel-body">
 					<div id="drop-zone">
@@ -20,17 +20,19 @@
 					<div id="result-zone"></div>
 				</div>
 			</div>
-			<div class="dropdown">
-				<button class="btn btn-secondary dropdown-toggle" type="button" id="select-table-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Show Table
-				</button>
-				<div class="dropdown-menu" aria-labelledby="selectTableButton">
-					<a class="dropdown-item" id="select-game-item" href="#">Game</a>
-					<a class="dropdown-item" id="select-round-item" href="#">Round</a>
-					<a class="dropdown-item" id="select-score-item" href="#">Score</a>
+			<div class="col-xl" id="table-menu">
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="select-table-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Show Table
+					</button>
+					<div class="dropdown-menu" aria-labelledby="selectTableButton">
+						<a class="dropdown-item" id="select-game-item" href="#">Game</a>
+						<a class="dropdown-item" id="select-round-item" href="#">Round</a>
+						<a class="dropdown-item" id="select-score-item" href="#">Score</a>
+					</div>
 				</div>
 			</div>
-			<div id="table-area"></div>
+			<div class="col-xl" id="table-area"></div>
 		</div>
 
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
