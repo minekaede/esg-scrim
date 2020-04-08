@@ -8,6 +8,7 @@ function drawGameTable() {
     var gTable = document.createElement("table");
     gTable.classList.add("table", "table-bordered", "table-hover");
     gTable.setAttribute("id", "game");
+    gTable.style.width = "100%";
     $("#table-area").append(gTable);
 
     $("#game").append(
@@ -57,6 +58,7 @@ function drawRoundTable() {
     var rTable = document.createElement("table");
     rTable.classList.add("table", "table-bordered", "table-hover");
     rTable.setAttribute("id", "round");
+    rTable.style.width = "100%";
     $("#table-area").append(rTable);
 
     $("#round").append(
@@ -92,6 +94,7 @@ function drawScoreTable() {
     var sTable = document.createElement("table");
     sTable.classList.add("table", "table-bordered", "table-hover");
     sTable.setAttribute("id", "score");
+    sTable.style.width = "100%";
     $("#table-area").append(sTable);
 
     $("#score").append(
