@@ -165,6 +165,6 @@ $(function() {
         drawScoreTable();
     });
     $("#game tbody").on("click", "th", function() {
-        console.log(table.column(this).data());
+        console.log($(this));
     });
 });
