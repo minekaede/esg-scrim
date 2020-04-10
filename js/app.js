@@ -61,6 +61,7 @@ function drawGameTable() {
             table.search($(this).text()).draw();
         });
     });
+    table.draw();
 }
 
 function drawRoundTable() {
@@ -100,6 +101,7 @@ function drawRoundTable() {
             table.search($(this).text()).draw();
         });
     });
+    table.draw();
 }
 
 function drawScoreTable() {
@@ -143,6 +145,7 @@ function drawScoreTable() {
             table.search($(this).text()).draw();
         });
     });
+    table.draw();
 }
 
 function initResult() {
