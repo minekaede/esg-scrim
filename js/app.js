@@ -2,6 +2,12 @@ var data; // csvから取得したデータ
 var table; // 表示中の表
 
 function drawBombAnalysis() {
+    if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
+        return;
+    }
+}
+
+function drawBombTerm() {
     initResult();
     $("<div>", {
         class: "row form-group",
@@ -22,7 +28,7 @@ function drawBombAnalysis() {
         class: "form-control",
         id: "date-input-start",
         type: "date",
-        value: data["game"]["date"].reduce((a, b) => a < b ? a : b)
+        value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
     })).appendTo("#period-input");
     $("<div>", {
         class: "col-xs-1"
@@ -39,17 +45,18 @@ function drawBombAnalysis() {
         class: "form-control",
         id: "date-input-end",
         type: "date",
-        value: data["game"]["date"].reduce((a, b) => a > b ? a : b)
+        value: data.game.map(g => g.date).reduce((a, b) => a > b ? a : b)
     })).appendTo("#period-input");
     $("<div>", {
         class: "row",
         id: "bomb-result"
     }).appendTo("#analysis-area");
+    drawBombAnalysis(); // 全期間で表示
     $("#date-input-start").on("change", function() {
-        console.log("start changed");
+        drawBombAnalysis();
     });
     $("#date-input-end").on("change", function() {
-        console.log("end changed");
+        drawBombAnalysis();
     });
 }
 
@@ -80,23 +87,24 @@ function drawGameTable() {
         )
     );
     var tbody = $("<tbody>");
-    for (var i = 0; i < data["game"]["game_id"].length; i++) {
+    data.game.forEach(g => {
         tbody.append(
             $("<tr>")
-            .append($("<th>").text(String(data["game"]["game_id"][i])))
-            .append($("<th>").text(String(data["game"]["date"][i])))
-            .append($("<th>").text(String(data["game"]["opponent"][i])))
-            .append($("<th>").text(String(data["game"]["map"][i])))
-            .append($("<th>").text(String(data["game"]["offense_first"][i]) == "own" ? "自" : "相"))
-            .append($("<th>").text(String(data["game"]["offense_ban_own"][i])))
-            .append($("<th>").text(String(data["game"]["offense_ban_opponent"][i])))
-            .append($("<th>").text(String(data["game"]["defense_ban_own"][i])))
-            .append($("<th>").text(String(data["game"]["defense_ban_opponent"][i])))
-            .append($("<th>").text(String(data["game"]["result"][i]) == "win" ? "勝" : "負"))
-            .append($("<th>").text(String(data["game"]["score_own"][i])))
-            .append($("<th>").text(String(data["game"]["score_opponent"][i])))
+            .append($("<th>").text(String(g.game_id)))
+            .append($("<th>").text(String(g.date)))
+            .append($("<th>").text(String(g.opponent)))
+            .append($("<th>").text(String(g.map)))
+            .append($("<th>").text(String(g.offense_first) == "own" ? "自" : "相"))
+            .append($("<th>").text(String(g.offense_ban_own)))
+            .append($("<th>").text(String(g.offense_ban_opponent)))
+            .append($("<th>").text(String(g.defense_ban_own)))
+            .append($("<th>").text(String(g.defense_ban_opponent)))
+            .append($("<th>").text(String(g.result).replace("win", "勝").replace("lose", "負").replace("draw", "引分")))
+            .append($("<th>").text(String(g.score_own)))
+            .append($("<th>").text(String(g.score_opponent)))
         );
-    }
+    });
+
     $("#game").append(tbody);
     table = $("#game").DataTable();
     table.on("draw", function() {
@@ -127,16 +135,17 @@ function drawRoundTable() {
         )
     );
     var tbody = $("<tbody>");
-    for (var i = 0; i < data["round"]["game_id"].length; i++) {
+    data.round.forEach(r => {
         tbody.append(
             $("<tr>")
-            .append($("<th>").text(String(data["round"]["game_id"][i])))
-            .append($("<th>").text(String(data["round"]["num"][i])))
-            .append($("<th>").text(String(data["round"]["od"][i]) == "offense" ? "攻" : "防"))
-            .append($("<th>").text(String(data["round"]["point"][i])))
-            .append($("<th>").text(String(data["round"]["wl"][i]) == "win" ? "勝" : "負"))
+            .append($("<th>").text(String(r.game_id)))
+            .append($("<th>").text(String(r.num)))
+            .append($("<th>").text(String(r.od) == "offense" ? "攻" : "防"))
+            .append($("<th>").text(String(r.point)))
+            .append($("<th>").text(String(r.wl) == "win" ? "勝" : "負"))
         );
-    }
+    });
+
     $("#round").append(tbody);
     table = $("#round").DataTable();
     table.on("draw", function() {
@@ -169,18 +178,19 @@ function drawScoreTable() {
         )
     );
     var tbody = $("<tbody>");
-    for (var i = 0; i < data["score"]["game_id"].length; i++) {
+    data.score.forEach(s => {
         tbody.append(
             $("<tr>")
-            .append($("<th>").text(String(data["score"]["game_id"][i])))
-            .append($("<th>").text(String(data["score"]["team"][i])))
-            .append($("<th>").text(String(data["score"]["uplayid"][i])))
-            .append($("<th>").text(String(data["score"]["score"][i])))
-            .append($("<th>").text(String(data["score"]["kill"][i])))
-            .append($("<th>").text(String(data["score"]["assist"][i])))
-            .append($("<th>").text(String(data["score"]["death"][i])))
+            .append($("<th>").text(String(s.game_id)))
+            .append($("<th>").text(String(s.team)))
+            .append($("<th>").text(String(s.uplayid)))
+            .append($("<th>").text(String(s.score)))
+            .append($("<th>").text(String(s.kill)))
+            .append($("<th>").text(String(s.assist)))
+            .append($("<th>").text(String(s.death)))
         );
-    }
+    });
+
     $("#score").append(tbody);
     table = $("#score").DataTable();
     table.on("draw", function() {
@@ -231,7 +241,7 @@ $(function() {
         return false;
     });
     $("#select-bomb-item").on("click", function() {
-        drawBombAnalysis();
+        drawBombTerm();
     });
     $("#select-game-item").on("click", function() {
         drawGameTable();
