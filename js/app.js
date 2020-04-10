@@ -8,24 +8,25 @@ function drawBombAnalysis() {
         id: "period-input"
     }).appendTo("#analysis-area");
     $("<label>", {
-        class: "col-2 col-form-label",
+        class: "col-xs-2 col-form-label",
         for: "date-input-start",
         text: "期間："
     }).appendTo("#period-input");
     $("<div>", {
-        class: "col-4"
+        class: "col-xs-4"
     }).append($("<input>", {
         class: "form-control",
         id: "date-input-start",
         type: "date",
         value: data["game"]["date"].reduce((a, b) => a < b ? a : b)
     })).appendTo("#period-input");
-    $("<div>", {
-        class: "col-2",
+    $("<label>", {
+        class: "col-xs-2 col-form-label",
+        for: "date-input-end",
         text: "～"
     }).appendTo("#period-input");
     $("<div>", {
-        class: "col-4"
+        class: "col-xs-4"
     }).append($("<input>", {
         class: "form-control",
         id: "date-input-end",
