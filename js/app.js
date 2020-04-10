@@ -33,6 +33,7 @@ function drawGameTable() {
             .append($("<th></th>").text("攻撃オペBAN(相)"))
             .append($("<th></th>").text("防衛オペBAN(自)"))
             .append($("<th></th>").text("防衛オペBAN(相)"))
+            .append($("<th></th>").text("勝敗"))
             .append($("<th></th>").text("スコア(自)"))
             .append($("<th></th>").text("スコア(相)"))
         )
@@ -50,6 +51,7 @@ function drawGameTable() {
             .append($("<th></th>").text(String(data["game"]["offense_ban_opponent"][i])))
             .append($("<th></th>").text(String(data["game"]["defense_ban_own"][i])))
             .append($("<th></th>").text(String(data["game"]["defense_ban_opponent"][i])))
+            .append($("<th></th>").text(String(data["game"]["result"][i]) == "win" ? "勝" : "負"))
             .append($("<th></th>").text(String(data["game"]["score_own"][i])))
             .append($("<th></th>").text(String(data["game"]["score_opponent"][i])))
         );
@@ -89,9 +91,9 @@ function drawRoundTable() {
             $("<tr></tr>")
             .append($("<th></th>").text(String(data["round"]["game_id"][i])))
             .append($("<th></th>").text(String(data["round"]["num"][i])))
-            .append($("<th></th>").text(String(data["round"]["od"][i])))
+            .append($("<th></th>").text(String(data["round"]["od"][i]) == "offense" ? "攻" : "防"))
             .append($("<th></th>").text(String(data["round"]["point"][i])))
-            .append($("<th></th>").text(String(data["round"]["wl"][i])))
+            .append($("<th></th>").text(String(data["round"]["wl"][i]) == "win" ? "勝" : "負"))
         );
     }
     $("#round").append(tbody);

@@ -104,21 +104,23 @@ function makeDict(text) { // csvテキストを処理して連想配列を返す
 
         // score
         var score_list = round_row[31].split("\n").filter(l => l != "");
-        for (var i = 0; i < score_list.length; i++) {
-            data["score"]["game_id"].push(id);
-            if (0 <= i && i <= 4) {
-                data["score"]["team"].push("Excelsior Gaming");
-            } else if (5 <= i && i <= 9) {
-                data["score"]["team"].push(row[2]);
-            } else {
-                throw new Error("スコアの行数が多すぎます: " + String(i + 1) + "行");
+        if (score_list.length == 5 || score_list.length == 10) {
+            for (var i = 0; i < score_list.length; i++) {
+                data["score"]["game_id"].push(id);
+                if (0 <= i && i <= 4) {
+                    data["score"]["team"].push("Excelsior Gaming");
+                } else if (5 <= i && i <= 9) {
+                    data["score"]["team"].push(row[2]);
+                } else {
+                    throw new Error("スコアの行数が多すぎます: " + String(i + 1) + "行");
+                }
+                var values = score_list[i].split(" ");
+                data["score"]["uplayid"].push(values[0]);
+                data["score"]["score"].push(Number(values[1]));
+                data["score"]["kill"].push(Number(values[2]));
+                data["score"]["assist"].push(Number(values[3]));
+                data["score"]["death"].push(Number(values[4]));
             }
-            var values = score_list[i].split(" ");
-            data["score"]["uplayid"].push(values[0]);
-            data["score"]["score"].push(Number(values[1]));
-            data["score"]["kill"].push(Number(values[2]));
-            data["score"]["assist"].push(Number(values[3]));
-            data["score"]["death"].push(Number(values[4]));
         }
 
         // game
