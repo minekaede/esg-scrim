@@ -53,7 +53,7 @@ function makeDict(text) { // csvテキストを処理して連想配列を返す
 
         // game
         data["game"]["game_id"].push(id);
-        data["game"]["date"].push(row[1]);
+        data["game"]["date"].push(row[1].replace("/", "-"));
         data["game"]["opponent"].push(row[2]);
         data["game"]["map"].push(row[8]);
         data["game"]["offense_first"].push(row[3].replace("自チーム", "own").replace("相手チーム", "opponent"));
