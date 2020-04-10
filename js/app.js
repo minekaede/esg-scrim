@@ -5,6 +5,7 @@ function drawBombAnalysis() {
     if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
         return;
     }
+    console.log(data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end")));
 }
 
 function drawBombTerm() {
