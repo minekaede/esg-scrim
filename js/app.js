@@ -1,6 +1,17 @@
 var data; // csvから取得したデータ
 var table; // 表示中の表
 
+function drawBombAnalysis() {
+    initResult();
+    var dateDiv = document.createElement("div");
+    dateDiv.classList.add("row", "form-group");
+    var labelStart = document.createElement("label");
+    labelStart.classList.add("col-1", "col-form-label");
+    labelStart.setAttribute("for", "date-input-start");
+    labelStart.text("期間：");
+    dateDiv.append(labelStart);
+}
+
 function drawGameTable() {
     /* #table-area内に表を設置 */
     initResult();
@@ -45,9 +56,11 @@ function drawGameTable() {
     }
     $("#game").append(tbody);
     table = $("#game").DataTable();
-    $("#game tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
-        table.search($(this).text()).draw();
-    });
+    table.on("draw", function() {
+        $("#game tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+            table.search($(this).text()).draw();
+        });
+    })
 }
 
 function drawRoundTable() {
@@ -82,9 +95,11 @@ function drawRoundTable() {
     }
     $("#round").append(tbody);
     table = $("#round").DataTable();
-    $("#round tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
-        table.search($(this).text()).draw();
-    });
+    table.on("draw", function() {
+        $("#round tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+            table.search($(this).text()).draw();
+        });
+    })
 }
 
 function drawScoreTable() {
@@ -123,14 +138,19 @@ function drawScoreTable() {
     }
     $("#score").append(tbody);
     table = $("#score").DataTable();
-    $("#score tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
-        table.search($(this).text()).draw();
-    });
+    table.on("draw", function() {
+        $("#score tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+            table.search($(this).text()).draw();
+        });
+    })
 }
 
 function initResult() {
     if ($("#table-area").length) { // #table-areaが空でないとき
         $("#table-area").empty();
+    }
+    if ($("#analysis-area").length) { // #analysis-areaが空でないとき
+        $("#analysis-area").empty();
     }
 }
 
@@ -163,6 +183,9 @@ $(function() {
         return false;
     }).on("dragover", function() {
         return false;
+    });
+    $("#select-bomb-item").on("click", function() {
+        drawBombAnalysis();
     });
     $("#select-game-item").on("click", function() {
         drawGameTable();
