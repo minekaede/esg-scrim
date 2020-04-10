@@ -25,8 +25,6 @@ function makeDict(text) { // csvテキストを処理して連想配列を返す
         var score_opponent = 0
         var row = arr[id];
         var game_dict = {};
-        var round_dict = {};
-        var score_dict = {};
 
         // game_dict
         game_dict.game_id = id;
@@ -53,6 +51,7 @@ function makeDict(text) { // csvテキストを処理して連想配列を返す
         var round_row = row.slice(9 + map_index * 32, 41 + map_index * 32);
         for (var i = 0; i < 15; i++) {
             if (round_row[i] != "") {
+                var round_dict = {};
                 round_dict.game_id = id;
                 round_dict.num = i + 1;
                 round_dict.point = round_row[15 + i];
@@ -76,6 +75,8 @@ function makeDict(text) { // csvテキストを処理して連想配列を返す
                 } else {
                     throw new Error("想定していない文字列が含まれています: round_row[30] (延長先攻)");
                 }
+
+                data.round.push(round_dict);
             }
         }
 
@@ -83,6 +84,7 @@ function makeDict(text) { // csvテキストを処理して連想配列を返す
         var score_list = round_row[31].split("\n").filter(l => l != "");
         if (score_list.length == 5 || score_list.length == 10) {
             for (var i = 0; i < score_list.length; i++) {
+                var score_dict = {};
                 score_dict.game_id = id;
                 if (0 <= i && i <= 4) {
                     score_dict.team = "Excelsior Gaming";
@@ -97,6 +99,8 @@ function makeDict(text) { // csvテキストを処理して連想配列を返す
                 score_dict.kill = Number(values[2]);
                 score_dict.assist = Number(values[3]);
                 score_dict.death = Number(values[4]);
+
+                data.score.push(score_dict);
             }
         }
 
@@ -112,8 +116,6 @@ function makeDict(text) { // csvテキストを処理して連想配列を返す
         game_dict.score_opponent = score_opponent;
 
         data.game.push(game_dict);
-        data.round.push(round_dict);
-        data.score.push(score_dict);
     }
 
     return data;
