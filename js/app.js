@@ -15,11 +15,11 @@ function drawBombAnalysis() {
 function drawGameTable() {
     /* #table-area内に表を設置 */
     initResult();
-    var gTable = document.createElement("table");
-    gTable.classList.add("table", "table-bordered", "table-hover");
-    gTable.setAttribute("id", "game");
-    gTable.style.width = "100%";
-    $("#table-area").append(gTable);
+    $("<table>", {
+        class: "table table-bordered table-hover",
+        id: "game",
+        style: "width:100%;"
+    }).appendTo("#table-area");
 
     $("#game").append(
         $("<thead></thead>").append(
