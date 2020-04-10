@@ -1,6 +1,6 @@
 var map_list; // config.jsonから取得するマップリスト(Googleフォームの順番と同じになっている必要あり)
 $.getJSON("config.json", function(data) {
-    map_list = data;
+    map_list = data.map;
 });
 
 function makeDict(text) { // csvテキストを処理して連想配列を返す

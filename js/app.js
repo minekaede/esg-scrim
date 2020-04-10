@@ -2,7 +2,7 @@ var data; // csvから取得したデータ
 var table; // 表示中の表
 var map_list; // config.jsonから取得するマップリスト(Googleフォームの順番と同じになっている必要あり)
 $.getJSON("config.json", function(data) {
-    map_list = data;
+    map_list = data.map;
 });
 
 function drawBombAnalysis() {
