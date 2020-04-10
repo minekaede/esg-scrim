@@ -3,13 +3,35 @@ var table; // 表示中の表
 
 function drawBombAnalysis() {
     initResult();
-    var dateDiv = document.createElement("div");
-    dateDiv.classList.add("row", "form-group");
-    var labelStart = document.createElement("label");
-    labelStart.classList.add("col-1", "col-form-label");
-    labelStart.setAttribute("for", "date-input-start");
-    labelStart.text("期間：");
-    dateDiv.append(labelStart);
+    $("<div>", {
+        class: "row form-group",
+        id: "period-input"
+    }).appendTo("#analysis-area");
+    $("<label>", {
+        class: "col-1 col-form-label",
+        for: "date-input-start",
+        text: "期間："
+    }).appendTo("#period-input");
+    $("<div>", {
+        class: "col-5"
+    }).append($("<input>", {
+        class: "form-control",
+        id: "date-input-start",
+        type: "date",
+        value: data["game"]["date"].reduce((a, b) => a < b ? a : b)
+    })).appendTo("#period-input");
+    $("<div>", {
+        class: "col-1",
+        text: "～"
+    });
+    $("<div>", {
+        class: "col-5"
+    }).append($("<input>", {
+        class: "form-control",
+        id: "date-input-end",
+        type: "date",
+        value: data["game"]["date"].reduce((a, b) => a > b ? a : b)
+    })).appendTo("#period-input");
 }
 
 function drawGameTable() {
@@ -38,7 +60,7 @@ function drawGameTable() {
             .append($("<th>").text("スコア(相)"))
         )
     );
-    var tbody = $("<tbody></tbody>");
+    var tbody = $("<tbody>");
     for (var i = 0; i < data["game"]["game_id"].length; i++) {
         tbody.append(
             $("<tr>")
@@ -69,11 +91,11 @@ function drawGameTable() {
 function drawRoundTable() {
     /* #table-area内に表を設置 */
     initResult();
-    var rTable = document.createElement("table");
-    rTable.classList.add("table", "table-bordered", "table-hover");
-    rTable.setAttribute("id", "round");
-    rTable.style.width = "100%";
-    $("#table-area").append(rTable);
+    $("<table>", {
+        class: "table table-bordered table-hover",
+        id: "round",
+        style: "width:100%;"
+    }).appendTo("#table-area");
 
     $("#round").append(
         $("<thead>").append(
@@ -85,7 +107,7 @@ function drawRoundTable() {
             .append($("<th>").text("勝敗"))
         )
     );
-    var tbody = $("<tbody></tbody>");
+    var tbody = $("<tbody>");
     for (var i = 0; i < data["round"]["game_id"].length; i++) {
         tbody.append(
             $("<tr>")
@@ -109,11 +131,11 @@ function drawRoundTable() {
 function drawScoreTable() {
     /* #table-area内に表を設置 */
     initResult();
-    var sTable = document.createElement("table");
-    sTable.classList.add("table", "table-bordered", "table-hover");
-    sTable.setAttribute("id", "score");
-    sTable.style.width = "100%";
-    $("#table-area").append(sTable);
+    $("<table>", {
+        class: "table table-bordered table-hover",
+        id: "score",
+        style: "width:100%;"
+    }).appendTo("#table-area");
 
     $("#score").append(
         $("<thead>").append(
@@ -127,7 +149,7 @@ function drawScoreTable() {
             .append($("<th>").text("デス"))
         )
     );
-    var tbody = $("<tbody></tbody>");
+    var tbody = $("<tbody>");
     for (var i = 0; i < data["score"]["game_id"].length; i++) {
         tbody.append(
             $("<tr>")
