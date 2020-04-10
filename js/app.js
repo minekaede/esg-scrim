@@ -41,6 +41,16 @@ function drawBombAnalysis() {
         type: "date",
         value: data["game"]["date"].reduce((a, b) => a > b ? a : b)
     })).appendTo("#period-input");
+    $("<div>", {
+        class: "row",
+        id: "bomb-result"
+    }).appendTo("#analysis-area");
+    $("#date-input-start").on("change", function() {
+        console.log("start changed");
+    });
+    $("#date-input-end").on("change", function() {
+        console.log("end changed");
+    });
 }
 
 function drawGameTable() {
