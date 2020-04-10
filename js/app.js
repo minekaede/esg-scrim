@@ -1,11 +1,16 @@
 var data; // csvから取得したデータ
 var table; // 表示中の表
+var map_list; // config.jsonから取得するマップリスト(Googleフォームの順番と同じになっている必要あり)
+$.getJSON("config.json", function(data) {
+    map_list = data;
+});
 
 function drawBombAnalysis() {
     if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
         return;
     }
-    console.log(data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end")));
+    var id_list = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end")).map(g => g.game_id);
+    data.round.filter(r => id_list.includes(r.game_id));
 }
 
 function drawBombTerm() {

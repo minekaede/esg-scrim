@@ -1,17 +1,9 @@
+var map_list; // config.jsonから取得するマップリスト(Googleフォームの順番と同じになっている必要あり)
+$.getJSON("config.json", function(data) {
+    map_list = data;
+});
+
 function makeDict(text) { // csvテキストを処理して連想配列を返す
-    /*
-        マップリスト
-        Googleフォームのマップリストと同じ順番になっている必要あり
-    */
-    const map_list = [
-        "銀行",
-        "国境",
-        "クラブハウス",
-        "海岸線",
-        "領事館",
-        "カフェ・ドストエフスキー",
-        "ヴィラ"
-    ]
     var arr = $.csv.toArrays(text); // csvテキストを2次元配列に変換 by jquery-csv
     arr.shift(); // ヘッダー(1行目)を削除
     var data = {
