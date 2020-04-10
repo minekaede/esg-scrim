@@ -60,7 +60,7 @@ function drawGameTable() {
         $("#game tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
             table.search($(this).text()).draw();
         });
-    })
+    });
 }
 
 function drawRoundTable() {
@@ -99,7 +99,7 @@ function drawRoundTable() {
         $("#round tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
             table.search($(this).text()).draw();
         });
-    })
+    });
 }
 
 function drawScoreTable() {
@@ -142,7 +142,7 @@ function drawScoreTable() {
         $("#score tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
             table.search($(this).text()).draw();
         });
-    })
+    });
 }
 
 function initResult() {
