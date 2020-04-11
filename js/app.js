@@ -73,21 +73,26 @@ function drawBombAnalysis() {
     );
     var tbody = $("<tbody>");
     point_list.forEach(p => {
-        tbody.append(
-            $("<tr>").addClass("table-warning")
-            .append($("<th>").text(String(p)))
-            .append($("<th>").text(String("攻")))
-            .append($("<th>").text(String(result[p].offense.win)))
-            .append($("<th>").text(String(result[p].offense.lose)))
-            .append($("<th>").text(String(result[p].offense.rate)))
-        ).append(
-            $("<tr>").addClass("table-primary")
-            .append($("<th>").text(String(p)))
-            .append($("<th>").text(String("防")))
-            .append($("<th>").text(String(result[p].defense.win)))
-            .append($("<th>").text(String(result[p].defense.lose)))
-            .append($("<th>").text(String(result[p].defense.rate)))
-        );
+        if (result[p].offense.win != 0 || result[p].offense.lose != 0) {
+            tbody.append(
+                $("<tr>").addClass("table-warning")
+                .append($("<th>").text(String(p)))
+                .append($("<th>").text(String("攻")))
+                .append($("<th>").text(String(result[p].offense.win)))
+                .append($("<th>").text(String(result[p].offense.lose)))
+                .append($("<th>").text(String(result[p].offense.rate)))
+            );
+        }
+        if (result[p].defense.win != 0 || result[p].defense.lose != 0) {
+            tbody.append(
+                $("<tr>").addClass("table-primary")
+                .append($("<th>").text(String(p)))
+                .append($("<th>").text(String("防")))
+                .append($("<th>").text(String(result[p].defense.win)))
+                .append($("<th>").text(String(result[p].defense.lose)))
+                .append($("<th>").text(String(result[p].defense.rate)))
+            );
+        }
     });
 
     $("#bomb").append(tbody);
