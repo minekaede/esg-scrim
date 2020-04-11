@@ -12,63 +12,62 @@ function drawBombAnalysis() {
 function drawBombCond() {
     initResult();
     $("<div>", {
-        class: "row form-group",
-        id: "period-input"
-    }).appendTo("#analysis-area");
-    $("<div>", {
-        class: "col-xl-3"
+        class: "form-horizontal"
     }).append(
-        $("<label>", {
-            class: "col-form-label",
-            for: "date-input-start",
-            text: "期間："
-        })
-    ).appendTo("#period-input");
-    $("<div>", {
-        class: "col-xl-4"
-    }).append($("<input>", {
-        class: "form-control",
-        id: "date-input-start",
-        type: "date",
-        value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
-    })).appendTo("#period-input");
-    $("<div>", {
-        class: "col-xl-1"
-    }).append(
-        $("<label>", {
-            class: "col-form-label",
-            for: "date-input-start",
-            text: "～"
-        })
-    ).appendTo("#period-input");
-    $("<div>", {
-        class: "col-xl-4"
-    }).append($("<input>", {
-        class: "form-control",
-        id: "date-input-end",
-        type: "date",
-        value: data.game.map(g => g.date).reduce((a, b) => a > b ? a : b)
-    })).appendTo("#period-input");
-
-    $("<div>", {
-        class: "row form-group",
-        id: "map-div"
-    }).appendTo("#analysis-area");
-    $("<div>", {
-        class: "col-xl-3"
-    }).append(
-        $("<label>", {
-            class: "col-form-label",
-            for: "map-select",
-            text: "マップ："
-        })
-    ).appendTo("#map-div");
-    $("<div>", {
-        class: "col-xl-9"
-    }).append($("<select>", {
-        class: "form-control",
-        id: "map-select"
-    })).appendTo("#map-div");
+        $("<div>", {
+            class: "form-group"
+        }).append(
+            $("<label>", {
+                class: "control-label col-xs-3",
+                text: "期間："
+            })
+        ).append(
+            $("<div>", {
+                class: "col-xs-4"
+            }).append(
+                $("<input>", {
+                    class: "form-control",
+                    id: "date-input-start",
+                    type: "date",
+                    value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
+                })
+            )
+        ).append(
+            $("<div>", {
+                class: "col-xs-1",
+                text: "～"
+            })
+        ).append(
+            $("<div>", {
+                class: "col-xs-4"
+            }).append(
+                $("<input>", {
+                    class: "form-control",
+                    id: "date-input-end",
+                    type: "date",
+                    value: data.game.map(g => g.date).reduce((a, b) => a > b ? a : b)
+                })
+            )
+        )
+    ).append(
+        $("<div>", {
+            class: "form-group"
+        }).append(
+            $("<label>", {
+                class: "control-label col-xs-3",
+                text: "マップ："
+            })
+        ).append(
+            $("<div>", {
+                class: "col-xs-9"
+            }).append(
+                $("<select>", {
+                    class: "form-control",
+                    id: "map-select"
+                })
+            )
+        )
+    ).appendTo("#analysis-area");
     map_list.forEach(m => {
         $("<option>").text(m).appendTo("#map-select");
     });
