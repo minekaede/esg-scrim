@@ -51,10 +51,54 @@ function drawBombAnalysis() {
         result[r.point][r.od][r.wl]++;
     });
     point_list.forEach(p => {
-        result[p].offense.rate = result[p].offense.win / (result[p].offense.win + result[p].offense.lose);
-        result[p].defense.rate = result[p].defense.win / (result[p].defense.win + result[p].defense.lose);
+        result[p].offense.rate = Math.round(100 * result[p].offense.win / (result[p].offense.win + result[p].offense.lose)) / 100;
+        result[p].defense.rate = Math.round(100 * result[p].defense.win / (result[p].defense.win + result[p].defense.lose)) / 100;
     });
-    console.log(result);
+
+    $("<table>", {
+        class: "table table-bordered table-hover",
+        id: "bomb",
+        style: "width:100%;"
+    }).appendTo("#bomb-result");
+
+    $("#bomb").append(
+        $("<thead>").append(
+            $("<tr>")
+            .append($("<th>").text("防衛地点"))
+            .append($("<th>").text("攻防"))
+            .append($("<th>").text("勝利数"))
+            .append($("<th>").text("敗北数"))
+            .append($("<th>").text("勝率"))
+        )
+    );
+    var tbody = $("<tbody>");
+    point_list.forEach(p => {
+        tbody.append(
+            $("<tr>")
+            .append($("<th>").text(String(p)))
+            .append($("<th>").text(String("攻")))
+            .append($("<th>").text(String(result[p].offense.win)))
+            .append($("<th>").text(String(result[p].offense.lose)))
+            .append($("<th>").text(String(result[p].offense.rate)))
+        ).append(
+            $("<tr>")
+            .append($("<th>").text(String(p)))
+            .append($("<th>").text(String("防")))
+            .append($("<th>").text(String(result[p].defense.win)))
+            .append($("<th>").text(String(result[p].defense.lose)))
+            .append($("<th>").text(String(result[p].defense.rate)))
+        );
+    });
+
+    $("#bomb").append(tbody);
+    table = $("#bomb").DataTable({
+        language: datatable_ja
+    });
+    table.on("draw", function() {
+        $("#bomb tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+            table.search($(this).text()).draw();
+        });
+    });
 }
 
 function drawBombCond() {
