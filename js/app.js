@@ -16,7 +16,7 @@ function drawBombCond() {
         id: "period-input"
     }).appendTo("#analysis-area");
     $("<div>", {
-        class: "col-xs-3"
+        class: "col-md-3"
     }).append(
         $("<label>", {
             class: "col-form-label",
@@ -25,7 +25,7 @@ function drawBombCond() {
         })
     ).appendTo("#period-input");
     $("<div>", {
-        class: "col-xs-4"
+        class: "col-md-4"
     }).append($("<input>", {
         class: "form-control",
         id: "date-input-start",
@@ -33,7 +33,7 @@ function drawBombCond() {
         value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
     })).appendTo("#period-input");
     $("<div>", {
-        class: "col-xs-1"
+        class: "col-md-1"
     }).append(
         $("<label>", {
             class: "col-form-label",
@@ -42,7 +42,7 @@ function drawBombCond() {
         })
     ).appendTo("#period-input");
     $("<div>", {
-        class: "col-xs-4"
+        class: "col-md-4"
     }).append($("<input>", {
         class: "form-control",
         id: "date-input-end",
@@ -55,7 +55,7 @@ function drawBombCond() {
         id: "map-div"
     }).appendTo("#analysis-area");
     $("<div>", {
-        class: "col-xs-3"
+        class: "col-md-3"
     }).append(
         $("<label>", {
             class: "col-form-label",
@@ -64,7 +64,7 @@ function drawBombCond() {
         })
     ).appendTo("#map-div");
     $("<div>", {
-        class: "col-xs-9"
+        class: "col-md-9"
     }).append($("<select>", {
         class: "form-control",
         id: "map-select"
