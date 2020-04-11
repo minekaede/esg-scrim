@@ -7,7 +7,7 @@ function drawBombAnalysis() {
         $("#bomb-result").append(
             $("<p>", {
                 class: "text-danger",
-                text: "期間が設定されていません"
+                text: "&nbsp;期間が設定されていません"
             }).prepend(
                 $("<span>", {
                     class: "badge badge-danger",
@@ -24,7 +24,7 @@ function drawBombAnalysis() {
         $("#bomb-result").append(
             $("<p>", {
                 class: "text-danger",
-                text: "該当するデータがありません"
+                text: "&nbsp;該当するデータがありません"
             }).prepend(
                 $("<span>", {
                     class: "badge badge-danger",
@@ -34,7 +34,7 @@ function drawBombAnalysis() {
         );
         return;
     }
-    console.log([...new Set(filtered_round.map(r => r.map))]);
+    console.log([...new Set(filtered_round.map(r => r.point))]);
 }
 
 function drawBombCond() {
