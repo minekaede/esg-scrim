@@ -81,7 +81,7 @@ function drawBombAnalysis() {
             .append($("<th>").text(String(result[p].offense.lose)))
             .append($("<th>").text(String(result[p].offense.rate)))
         ).append(
-            $("<tr>").addClass("table-info")
+            $("<tr>").addClass("table-primary")
             .append($("<th>").text(String(p)))
             .append($("<th>").text(String("防")))
             .append($("<th>").text(String(result[p].defense.win)))
@@ -199,7 +199,7 @@ function drawGameTable(word) {
     }).appendTo("#table-area");
 
     $("#game").append(
-        $("<thead>").append(
+        $("<thead>").addClass("thead-dark").append(
             $("<tr>")
             .append($("<th>").text("試合ID"))
             .append($("<th>").text("日付"))
@@ -218,7 +218,7 @@ function drawGameTable(word) {
     var tbody = $("<tbody>");
     data.game.forEach(g => {
         tbody.append(
-            $("<tr>")
+            $("<tr>").addClass(g.result.replace("win", "table-success").replace("lose", "table-danger").replace("draw", "table-warning"))
             .append($("<th>").text(String(g.game_id)))
             .append($("<th>").text(String(g.date)))
             .append($("<th>").text(String(g.opponent)))
@@ -261,7 +261,7 @@ function drawRoundTable(word) {
     }).appendTo("#table-area");
 
     $("#round").append(
-        $("<thead>").append(
+        $("<thead>").addClass("thead-dark").append(
             $("<tr>")
             .append($("<th>").text("試合ID"))
             .append($("<th>").text("ラウンド数"))
@@ -273,7 +273,7 @@ function drawRoundTable(word) {
     var tbody = $("<tbody>");
     data.round.forEach(r => {
         tbody.append(
-            $("<tr>")
+            $("<tr>").addClass(r.od == "offense" ? "table-warning" : "table-primary")
             .append($("<th>").text(String(r.game_id)))
             .append($("<th>").text(String(r.num)))
             .append($("<th>").text(String(r.od) == "offense" ? "攻" : "防"))
@@ -309,7 +309,7 @@ function drawScoreTable(word) {
     }).appendTo("#table-area");
 
     $("#score").append(
-        $("<thead>").append(
+        $("<thead>").addClass("thead-dark").append(
             $("<tr>")
             .append($("<th>").text("試合ID"))
             .append($("<th>").text("チーム名"))
@@ -323,7 +323,7 @@ function drawScoreTable(word) {
     var tbody = $("<tbody>");
     data.score.forEach(s => {
         tbody.append(
-            $("<tr>")
+            $("<tr>").addClass(s.team == "Excelsior Gaming" ? "table-info" : "table-light")
             .append($("<th>").text(String(s.game_id)))
             .append($("<th>").text(String(s.team)))
             .append($("<th>").text(String(s.uplayid)))
