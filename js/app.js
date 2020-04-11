@@ -92,7 +92,11 @@ function drawBombAnalysis() {
 
     $("#bomb").append(tbody);
     table = $("#bomb").DataTable({
-        language: datatable_ja
+        language: datatable_ja,
+        lengthChange: false,
+        searching: false,
+        info: false,
+        paging: false
     });
     table.on("draw", function() {
         $("#bomb tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
