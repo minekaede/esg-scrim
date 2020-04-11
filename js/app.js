@@ -8,7 +8,7 @@ function drawBombAnalysis() {
             $("<p>", {
                 class: "text-danger",
                 text: "期間が設定されていません"
-            }).append(
+            }).prepend(
                 $("<span>", {
                     class: "badge badge-danger",
                     text: "Error"
@@ -20,12 +20,12 @@ function drawBombAnalysis() {
     var id_list = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end") && g.map == $("#map-select").val()).map(g => g.game_id);
     var filtered_round = data.round.filter(r => id_list.includes(r.game_id));
     console.log(filtered_round);
-    if (filtered_round) {
+    if (filtered_round.length == 0) {
         $("#bomb-result").append(
             $("<p>", {
                 class: "text-danger",
                 text: "該当するデータがありません"
-            }).append(
+            }).prepend(
                 $("<span>", {
                     class: "badge badge-danger",
                     text: "Error"
