@@ -32,7 +32,7 @@ function drawBombCond() {
             )
         ).append(
             $("<div>", {
-                class: "col-xs-1"
+                class: "col-form-label col-xs-1"
             }).append(
                 $("<p>", {
                     class: "form-control-static",
