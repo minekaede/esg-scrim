@@ -10,6 +10,8 @@ function drawBombAnalysis() {
                 text: "Error"
             })
         ).append(
+            $("<br>")
+        ).append(
             $("<p>", {
                 class: "text-danger",
                 text: "期間が設定されていません"
@@ -25,6 +27,8 @@ function drawBombAnalysis() {
                 class: "badge badge-danger",
                 text: "Error"
             })
+        ).append(
+            $("<br>")
         ).append(
             $("<p>", {
                 class: "text-danger",
