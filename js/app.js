@@ -96,7 +96,8 @@ function drawBombAnalysis() {
         lengthChange: false,
         searching: false,
         info: false,
-        paging: false
+        paging: false,
+        order: [[1, "asc"], [4, "desc"]]
     });
     table.on("draw", function() {
         $("#bomb tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
