@@ -16,7 +16,7 @@ function drawBombCond() {
             class: "row form-group"
         }).append(
             $("<label>", {
-                class: "col-form-label col-xs-2 col-xs-offset-1",
+                class: "col-form-label col-xs-3",
                 text: "期間："
             })
         ).append(
