@@ -15,62 +15,54 @@ function drawBombCond() {
         $("<div>", {
             class: "row"
         }).append(
+            $("<label>", {
+                class: "col-xs-3",
+                text: "期間："
+            })
+        ).append(
             $("<div>", {
-                class: "form-group"
+                class: "col-xs-4"
             }).append(
-                $("<label>", {
-                    class: "col-md-3",
-                    text: "期間："
+                $("<input>", {
+                    class: "form-control",
+                    id: "date-input-start",
+                    type: "date",
+                    value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
                 })
-            ).append(
-                $("<div>", {
-                    class: "col-md-4"
-                }).append(
-                    $("<input>", {
-                        class: "form-control",
-                        id: "date-input-start",
-                        type: "date",
-                        value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
-                    })
-                )
-            ).append(
-                $("<div>", {
-                    class: "col-md-1",
-                    text: "～"
+            )
+        ).append(
+            $("<div>", {
+                class: "col-xs-1",
+                text: "～"
+            })
+        ).append(
+            $("<div>", {
+                class: "col-xs-4"
+            }).append(
+                $("<input>", {
+                    class: "form-control",
+                    id: "date-input-end",
+                    type: "date",
+                    value: data.game.map(g => g.date).reduce((a, b) => a > b ? a : b)
                 })
-            ).append(
-                $("<div>", {
-                    class: "col-md-4"
-                }).append(
-                    $("<input>", {
-                        class: "form-control",
-                        id: "date-input-end",
-                        type: "date",
-                        value: data.game.map(g => g.date).reduce((a, b) => a > b ? a : b)
-                    })
-                )
             )
         )
     ).append(
         $("<div>", {
             class: "row"
         }).append(
+            $("<label>", {
+                class: "col-xs-3",
+                text: "マップ："
+            })
+        ).append(
             $("<div>", {
-                class: "form-group"
+                class: "col-xs-9"
             }).append(
-                $("<label>", {
-                    class: "col-md-3",
-                    text: "マップ："
+                $("<select>", {
+                    class: "form-control",
+                    id: "map-select"
                 })
-            ).append(
-                $("<div>", {
-                    class: "col-md-9"
-                }).append(
-                    $("<select>", {
-                        class: "form-control",
-                        id: "map-select"
-                    })
-                )
             )
         )
     );
