@@ -2,11 +2,12 @@ var data; // csvから取得したデータ
 var table; // 表示中の表
 
 function drawBombAnalysis() {
-    if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
+    if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "" || $("#map-select").val() == "") {
         return;
     }
-    var id_list = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end")).map(g => g.game_id);
+    var id_list = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end") && g.map == $("#map-select").val()).map(g => g.game_id);
     var filtered_round = data.round.filter(r => id_list.includes(r.game_id));
+    console.log(filtered_round);
 }
 
 function drawBombCond() {
@@ -80,10 +81,14 @@ function drawBombCond() {
         id: "bomb-result"
     }).appendTo("#analysis-area");
     drawBombAnalysis(); // 全期間で表示
+
     $("#date-input-start").on("change", function() {
         drawBombAnalysis();
     });
     $("#date-input-end").on("change", function() {
+        drawBombAnalysis();
+    });
+    $("#map-select").on("change", function() {
         drawBombAnalysis();
     });
 }
