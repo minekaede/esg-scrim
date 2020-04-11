@@ -274,12 +274,12 @@ function drawRoundTable(word) {
     var tbody = $("<tbody>");
     data.round.forEach(r => {
         tbody.append(
-            $("<tr>")
-            .append($("<th>").addClass(r.od == "offense" ? "table-warning" : "table-primary").text(String(r.game_id)))
-            .append($("<th>").addClass(r.od == "offense" ? "table-warning" : "table-primary").text(String(r.num)))
-            .append($("<th>").addClass(r.od == "offense" ? "table-warning" : "table-primary").text(String(r.od) == "offense" ? "攻" : "防"))
-            .append($("<th>").addClass(r.od == "offense" ? "table-warning" : "table-primary").text(String(r.point)))
-            .append($("<th>").addClass(r.wl == "win" ? "table-success" : "table-danger").text(String(r.wl) == "win" ? "勝" : "負"))
+            $("<tr>").addClass(r.od == "offense" ? "table-warning" : "table-primary")
+            .append($("<th>").text(String(r.game_id)))
+            .append($("<th>").text(String(r.num)))
+            .append($("<th>").text(String(r.od) == "offense" ? "攻" : "防"))
+            .append($("<th>").text(String(r.point)))
+            .append($("<th>").text(String(r.wl) == "win" ? "勝" : "負"))
         );
     });
 
