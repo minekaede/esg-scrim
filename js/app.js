@@ -16,7 +16,7 @@ function drawBombCond() {
             class: "row"
         }).append(
             $("<label>", {
-                class: "col-xs-3",
+                class: "control-label col-xs-3",
                 text: "期間："
             })
         ).append(
@@ -32,7 +32,7 @@ function drawBombCond() {
             )
         ).append(
             $("<div>", {
-                class: "col-xs-1",
+                class: "form-control-static col-xs-1",
                 text: "～"
             })
         ).append(
@@ -57,7 +57,7 @@ function drawBombCond() {
             })
         ).append(
             $("<div>", {
-                class: "col-xs-9"
+                class: "control-label col-xs-9"
             }).append(
                 $("<select>", {
                     class: "form-control",
