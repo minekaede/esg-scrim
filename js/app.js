@@ -1,10 +1,5 @@
 var data; // csvから取得したデータ
 var table; // 表示中の表
-var map_list; // config.jsonから取得するマップリスト(Googleフォームの順番と同じになっている必要あり)
-$.getJSON("config.json", function(data) {
-    map_list = data.map;
-    datatable_ja = data.datatable.ja;
-});
 
 function drawBombAnalysis() {
     if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
@@ -113,13 +108,17 @@ function drawGameTable() {
     });
 
     $("#game").append(tbody);
-    table = $("#game").DataTable();
-    table.on("draw", function() {
-        $("#game tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
-            table.search($(this).text()).draw();
-        });
+    table = $("#game").DataTable({
+        language: datatable_ja,
+        initComplete: function() {
+            table.on("draw", function() {
+                $("#game tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+                    table.search($(this).text()).draw();
+                });
+            });
+            table.draw();
+        }
     });
-    table.draw();
 }
 
 function drawRoundTable() {
@@ -154,13 +153,17 @@ function drawRoundTable() {
     });
 
     $("#round").append(tbody);
-    table = $("#round").DataTable();
-    table.on("draw", function() {
-        $("#round tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
-            table.search($(this).text()).draw();
-        });
+    table = $("#round").DataTable({
+        language: datatable_ja,
+        initComplete: function() {
+            table.on("draw", function() {
+                $("#round tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+                    table.search($(this).text()).draw();
+                });
+            });
+            table.draw();
+        }
     });
-    table.draw();
 }
 
 function drawScoreTable() {
