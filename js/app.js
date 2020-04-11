@@ -116,10 +116,11 @@ function drawGameTable(word) {
             table.search($(this).text()).draw();
         });
     });
-    table.draw();
 
     if (word) {
         table.search(word).draw();
+    } else {
+        table.draw()
     }
 }
 
@@ -163,10 +164,11 @@ function drawRoundTable(word) {
             table.search($(this).text()).draw();
         });
     });
-    table.draw();
 
     if (word) {
         table.search(word).draw();
+    } else {
+        table.draw()
     }
 }
 
@@ -214,10 +216,11 @@ function drawScoreTable(word) {
             table.search($(this).text()).draw();
         });
     });
-    table.draw();
 
     if (word) {
         table.search(word).draw();
+    } else {
+        table.draw()
     }
 }
 
