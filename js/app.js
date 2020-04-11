@@ -13,7 +13,7 @@ function drawBombCond() {
     initResult();
     $("#analysis-area").append(
         $("<div>", {
-            class: "row"
+            class: "row form-group"
         }).append(
             $("<label>", {
                 class: "control-label col-xs-3",
@@ -27,7 +27,6 @@ function drawBombCond() {
                     class: "form-control",
                     id: "date-input-start",
                     type: "date",
-                    style: "vertical-align: middle;",
                     value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
                 })
             )
