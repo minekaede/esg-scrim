@@ -62,7 +62,7 @@ function drawBombAnalysis() {
     }).appendTo("#bomb-result");
 
     $("#bomb").append(
-        $("<thead>").append(
+        $("<thead>").addClass("thead-dark").append(
             $("<tr>")
             .append($("<th>").text("防衛地点"))
             .append($("<th>").text("攻防"))
