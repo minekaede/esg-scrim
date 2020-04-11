@@ -11,9 +11,7 @@ function drawBombAnalysis() {
 
 function drawBombCond() {
     initResult();
-    $("<div>", {
-        class: "form-horizontal"
-    }).append(
+    $("#analysis-area").append(
         $("<div>", {
             class: "row"
         }).append(
@@ -79,7 +77,7 @@ function drawBombCond() {
                 )
             )
         )
-    ).appendTo("#analysis-area");
+    );
     map_list.forEach(m => {
         $("<option>").text(m).appendTo("#map-select");
     });
