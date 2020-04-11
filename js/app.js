@@ -17,7 +17,7 @@ function drawBombAnalysis() {
         );
         return;
     }
-    var id_list = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end") && g.map == $("#map-select").val()).map(g => g.game_id);
+    var id_list = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end").val() && g.map == $("#map-select").val()).map(g => g.game_id);
     var filtered_round = data.round.filter(r => id_list.includes(r.game_id));
     if (filtered_round.length == 0) {
         $("#bomb-result").append(
