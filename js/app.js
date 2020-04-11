@@ -62,7 +62,7 @@ function drawBombTerm() {
     });
 }
 
-function drawGameTable() {
+function drawGameTable(word) {
     /* #table-area内に表を設置 */
     initResult();
     $("<table>", {
@@ -117,9 +117,13 @@ function drawGameTable() {
         });
     });
     table.draw();
+
+    if (word) {
+        table.search(word).draw();
+    }
 }
 
-function drawRoundTable() {
+function drawRoundTable(word) {
     /* #table-area内に表を設置 */
     initResult();
     $("<table>", {
@@ -152,19 +156,21 @@ function drawRoundTable() {
 
     $("#round").append(tbody);
     table = $("#round").DataTable({
-        language: datatable_ja,
-        initComplete: function() {
-            table.on("draw", function() {
-                $("#round tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
-                    table.search($(this).text()).draw();
-                });
-            });
-            table.draw();
-        }
+        language: datatable_ja
     });
+    table.on("draw", function() {
+        $("#round tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+            table.search($(this).text()).draw();
+        });
+    });
+    table.draw();
+
+    if (word) {
+        table.search(word).draw();
+    }
 }
 
-function drawScoreTable() {
+function drawScoreTable(word) {
     /* #table-area内に表を設置 */
     initResult();
     $("<table>", {
@@ -201,16 +207,18 @@ function drawScoreTable() {
 
     $("#score").append(tbody);
     table = $("#score").DataTable({
-        language: datatable_ja,
-        initComplete: function() {
-            table.on("draw", function() {
-                $("#score tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
-                    table.search($(this).text()).draw();
-                });
-            });
-            table.draw();
-        }
+        language: datatable_ja
     });
+    table.on("draw", function() {
+        $("#score tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+            table.search($(this).text()).draw();
+        });
+    });
+    table.draw();
+
+    if (word) {
+        table.search(word).draw();
+    }
 }
 
 function initResult() {
