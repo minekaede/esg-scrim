@@ -16,12 +16,12 @@ function drawBombCond() {
             class: "row form-group"
         }).append(
             $("<label>", {
-                class: "control-label col-sm-2",
+                class: "control-label col-sm-1",
                 text: "期間："
             })
         ).append(
             $("<div>", {
-                class: "col-sm-3"
+                class: "col-sm-2"
             }).append(
                 $("<input>", {
                     class: "form-control",
@@ -41,7 +41,7 @@ function drawBombCond() {
             )
         ).append(
             $("<div>", {
-                class: "col-sm-3 col-sm-offset-3"
+                class: "col-sm-2 col-sm-offset-6"
             }).append(
                 $("<input>", {
                     class: "form-control",
@@ -56,12 +56,12 @@ function drawBombCond() {
             class: "row form-group"
         }).append(
             $("<label>", {
-                class: "control-label col-sm-2",
+                class: "control-label col-sm-1",
                 text: "マップ："
             })
         ).append(
             $("<div>", {
-                class: "col-sm-3 col-sm-offset-7"
+                class: "col-sm-5 col-sm-offset-6"
             }).append(
                 $("<select>", {
                     class: "form-control",
