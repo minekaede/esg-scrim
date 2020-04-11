@@ -74,14 +74,14 @@ function drawBombAnalysis() {
     var tbody = $("<tbody>");
     point_list.forEach(p => {
         tbody.append(
-            $("<tr>")
+            $("<tr>").addClass("table-warning")
             .append($("<th>").text(String(p)))
             .append($("<th>").text(String("攻")))
             .append($("<th>").text(String(result[p].offense.win)))
             .append($("<th>").text(String(result[p].offense.lose)))
             .append($("<th>").text(String(result[p].offense.rate)))
         ).append(
-            $("<tr>")
+            $("<tr>").addClass("table-info")
             .append($("<th>").text(String(p)))
             .append($("<th>").text(String("防")))
             .append($("<th>").text(String(result[p].defense.win)))
