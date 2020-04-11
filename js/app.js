@@ -16,7 +16,7 @@ function drawBombCond() {
             class: "row form-group"
         }).append(
             $("<label>", {
-                class: "control-label col-xs-2 col-xs-offset-1",
+                class: "col-form-label col-xs-2 col-xs-offset-1",
                 text: "期間："
             })
         ).append(
@@ -56,7 +56,7 @@ function drawBombCond() {
             class: "row form-group"
         }).append(
             $("<label>", {
-                class: "control-label col-xs-3",
+                class: "col-form-label col-xs-3",
                 text: "マップ："
             })
         ).append(
