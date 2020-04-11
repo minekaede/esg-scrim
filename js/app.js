@@ -111,12 +111,12 @@ function drawGameTable() {
     table = $("#game").DataTable({
         language: datatable_ja,
         initComplete: function() {
-            table.on("draw", function() {
+            $(this).on("draw", function() {
                 $("#game tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
-                    table.search($(this).text()).draw();
+                    $(this).search($(this).text()).draw();
                 });
             });
-            table.draw();
+            $(this).draw();
         }
     });
 }
