@@ -19,7 +19,6 @@ function drawBombAnalysis() {
     }
     var id_list = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end") && g.map == $("#map-select").val()).map(g => g.game_id);
     var filtered_round = data.round.filter(r => id_list.includes(r.game_id));
-    console.log(filtered_round);
     if (filtered_round.length == 0) {
         $("#bomb-result").append(
             $("<p>", {
@@ -37,6 +36,7 @@ function drawBombAnalysis() {
     var result = {};
     var point_list = [...new Set(filtered_round.map(r => r.point))];
     point_list.forEach(p => {
+        console.log(p);
         result[p].offense.win = 0;
         result[p].offense.lose = 0;
         result[p].defense.win = 0;
