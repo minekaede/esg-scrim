@@ -43,12 +43,16 @@ function drawBombAnalysis() {
             },
             defense: {
                 win: 0,
-                lose:0
+                lose: 0
             }
         };
     });
     filtered_round.forEach(r => {
         result[r.point][r.od][r.wl]++;
+    });
+    point_list.forEach(p => {
+        result[p].offense.rate = result[p].offense.win / (result[p].offense.win + result[p].offense.lose);
+        result[p].defense.rate = result[p].defense.win / (result[p].defense.win + result[p].defense.lose);
     });
     console.log(result);
 }
