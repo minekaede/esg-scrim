@@ -5,35 +5,32 @@ function drawBombAnalysis() {
     $("#bomb-result").empty();
     if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
         $("#bomb-result").append(
-            $("<span>", {
-                class: "badge badge-danger",
-                text: "Error"
-            })
-        ).append(
-            $("<br>")
-        ).append(
             $("<p>", {
                 class: "text-danger",
                 text: "期間が設定されていません"
-            })
+            }).append(
+                $("<span>", {
+                    class: "badge badge-danger",
+                    text: "Error"
+                })
+            )
         );
         return;
     }
     var id_list = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end") && g.map == $("#map-select").val()).map(g => g.game_id);
     var filtered_round = data.round.filter(r => id_list.includes(r.game_id));
+    console.log(filtered_round);
     if (filtered_round) {
         $("#bomb-result").append(
-            $("<span>", {
-                class: "badge badge-danger",
-                text: "Error"
-            })
-        ).append(
-            $("<br>")
-        ).append(
             $("<p>", {
                 class: "text-danger",
                 text: "該当するデータがありません"
-            })
+            }).append(
+                $("<span>", {
+                    class: "badge badge-danger",
+                    text: "Error"
+                })
+            )
         );
         return;
     }
