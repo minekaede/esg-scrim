@@ -236,7 +236,8 @@ function drawGameTable(word) {
 
     $("#game").append(tbody);
     table = $("#game").DataTable({
-        language: datatable_ja
+        language: datatable_ja,
+        order: [[0, "desc"]]
     });
     table.on("draw", function() {
         $("#game tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
@@ -278,13 +279,14 @@ function drawRoundTable(word) {
             .append($("<th>").text(String(r.num)))
             .append($("<th>").text(String(r.od) == "offense" ? "攻" : "防"))
             .append($("<th>").text(String(r.point)))
-            .append($("<th>").text(String(r.wl) == "win" ? "勝" : "負"))
+            .append($("<th>").addClass(r.wl == "win" ? "table-success" : "table-danger").text(String(r.wl) == "win" ? "勝" : "負"))
         );
     });
 
     $("#round").append(tbody);
     table = $("#round").DataTable({
-        language: datatable_ja
+        language: datatable_ja,
+        order: [[0, "desc"]]
     });
     table.on("draw", function() {
         $("#round tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
@@ -336,7 +338,8 @@ function drawScoreTable(word) {
 
     $("#score").append(tbody);
     table = $("#score").DataTable({
-        language: datatable_ja
+        language: datatable_ja,
+        order: [[0, "desc"]]
     });
     table.on("draw", function() {
         $("#score tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
