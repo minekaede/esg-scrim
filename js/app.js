@@ -9,7 +9,7 @@ function drawBombAnalysis() {
     var filtered_round = data.round.filter(r => id_list.includes(r.game_id));
 }
 
-function drawBombTerm() {
+function drawBombCond() {
     initResult();
     $("<div>", {
         class: "row form-group",
@@ -49,6 +49,30 @@ function drawBombTerm() {
         type: "date",
         value: data.game.map(g => g.date).reduce((a, b) => a > b ? a : b)
     })).appendTo("#period-input");
+
+    $("<div>", {
+        class: "row form-group",
+        id: "map-div"
+    }).appendTo("#analysis-area");
+    $("<div>", {
+        class: "col-xs-3"
+    }).append(
+        $("<label>", {
+            class: "col-form-label",
+            for: "map-select",
+            text: "マップ："
+        })
+    ).appendTo("#map-div");
+    $("<div>", {
+        class: "col-xs-9"
+    }).append($("<select>", {
+        class: "form-control",
+        id: "map-select"
+    })).appendTo("#map-div");
+    map_list.forEach(m => {
+        $("<option>").text(m).appendTo("#map-select");
+    });
+
     $("<div>", {
         class: "row",
         id: "bomb-result"
@@ -264,7 +288,7 @@ $(function() {
         return false;
     });
     $("#select-bomb-item").on("click", function() {
-        drawBombTerm();
+        drawBombCond();
     });
     $("#select-game-item").on("click", function() {
         drawGameTable();
