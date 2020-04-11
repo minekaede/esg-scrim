@@ -6,7 +6,7 @@ function drawBombAnalysis() {
     if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
         $("#bomb-result").append(
             $("<span>", {
-                class: "label label-danger",
+                class: "badge badge-danger",
                 text: "Error"
             })
         ).append(
@@ -22,7 +22,7 @@ function drawBombAnalysis() {
     if (filtered_round) {
         $("#bomb-result").append(
             $("<span>", {
-                class: "label label-danger",
+                class: "badge badge-danger",
                 text: "Error"
             })
         ).append(
@@ -33,7 +33,7 @@ function drawBombAnalysis() {
         );
         return;
     }
-    console.log(filtered_round);
+    console.log([...new Set(filtered_round.map(r => r.map))]);
 }
 
 function drawBombCond() {
