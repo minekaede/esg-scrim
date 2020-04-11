@@ -17,7 +17,8 @@ function drawBombCond() {
         }).append(
             $("<label>", {
                 class: "control-label col-xs-3",
-                text: "期間："
+                text: "期間：",
+                style: "vertical-align: middle;"
             })
         ).append(
             $("<div>", {
