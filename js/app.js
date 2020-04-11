@@ -111,6 +111,7 @@ function drawGameTable() {
     table = $("#game").DataTable({
         language: datatable_ja,
         initComplete: function() {
+            console.log($(this));
             $(this).on("draw", function() {
                 $("#game tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
                     $(this).search($(this).text()).draw();
