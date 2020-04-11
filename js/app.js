@@ -32,9 +32,13 @@ function drawBombCond() {
             )
         ).append(
             $("<div>", {
-                class: "form-control-static col-xs-1",
-                text: "～"
-            })
+                class: "col-xs-1"
+            }).append(
+                $("<p>", {
+                    class: "form-control-static",
+                    text: "～"
+                })
+            )
         ).append(
             $("<div>", {
                 class: "col-xs-4"
@@ -52,12 +56,12 @@ function drawBombCond() {
             class: "row"
         }).append(
             $("<label>", {
-                class: "col-xs-3",
+                class: "control-label col-xs-3",
                 text: "マップ："
             })
         ).append(
             $("<div>", {
-                class: "control-label col-xs-9"
+                class: "col-xs-9"
             }).append(
                 $("<select>", {
                     class: "form-control",
