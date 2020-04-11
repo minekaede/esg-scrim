@@ -10,7 +10,7 @@ function drawBombAnalysis() {
         return;
     }
     var id_list = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end")).map(g => g.game_id);
-    data.round.filter(r => id_list.includes(r.game_id));
+    var filtered_round = data.round.filter(r => id_list.includes(r.game_id));
 }
 
 function drawBombTerm() {
@@ -198,13 +198,19 @@ function drawScoreTable() {
     });
 
     $("#score").append(tbody);
-    table = $("#score").DataTable();
-    table.on("draw", function() {
-        $("#score tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
-            table.search($(this).text()).draw();
-        });
+    table = $("#score").DataTable({
+        language: {
+            url: "Japanese.json"
+        },
+        initComplete: function() {
+            table.on("draw", function() {
+                $("#score tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
+                    table.search($(this).text()).draw();
+                });
+            });
+            table.draw();
+        }
     });
-    table.draw();
 }
 
 function initResult() {
