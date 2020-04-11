@@ -17,8 +17,7 @@ function drawBombCond() {
         }).append(
             $("<label>", {
                 class: "control-label col-xs-3",
-                text: "期間：",
-                style: "vertical-align: middle;"
+                text: "期間："
             })
         ).append(
             $("<div>", {
@@ -28,6 +27,7 @@ function drawBombCond() {
                     class: "form-control",
                     id: "date-input-start",
                     type: "date",
+                    style: "vertical-align: middle;",
                     value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
                 })
             )
