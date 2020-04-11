@@ -36,11 +36,16 @@ function drawBombAnalysis() {
     var result = {};
     var point_list = [...new Set(filtered_round.map(r => r.point))];
     point_list.forEach(p => {
-        console.log(p);
-        result[p].offense.win = 0;
-        result[p].offense.lose = 0;
-        result[p].defense.win = 0;
-        result[p].defense.lose = 0;
+        result[p] = {
+            offense: {
+                win: 0,
+                lose: 0
+            },
+            defense: {
+                win: 0,
+                lose:0
+            }
+        };
     });
     filtered_round.forEach(r => {
         result[r.point][r.od][r.wl]++;
