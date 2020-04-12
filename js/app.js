@@ -1,6 +1,155 @@
 var data; // csvから取得したデータ
 var table; // 表示中の表
 
+function drawMapAnalysis() {
+    $("#map-result").empty();
+    if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
+        $("#map-result").append(
+            $("<p>", {
+                class: "text-danger",
+                text: " 期間が設定されていません"
+            }).prepend(
+                $("<span>", {
+                    class: "badge badge-danger",
+                    text: "Error"
+                })
+            )
+        );
+        return;
+    }
+    var filtered_game = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end").val());
+    if (filtered_game.length == 0) {
+        $("#map-result").append(
+            $("<p>", {
+                class: "text-danger",
+                text: " 該当するデータがありません"
+            }).prepend(
+                $("<span>", {
+                    class: "badge badge-danger",
+                    text: "Error"
+                })
+            )
+        );
+        return;
+    }
+    var result = {};
+    var filtered_map_list = [...new Set(filtered_game.map(g => g.map))];
+    filtered_map_list.forEach(m => {
+        result[m] = {
+            win: 0,
+            lose: 0,
+            draw: 0
+        }
+    });
+    filtered_game.forEach(g => {
+        result[g.map][g.result]++;
+    });
+    filtered_map_list.forEach(m => {
+        result[m].rate = (100 * result[m].win / (result[m].win + result[m].lose)).toFixed(1);
+    });
+
+    $("<table>", {
+        class: "table table-bordered table-hover",
+        id: "map",
+        style: "width:100%;"
+    }).appendTo("#map-result");
+
+    $("#map").append(
+        $("<thead>").addClass("thead-dark").append(
+            $("<tr>")
+            .append($("<th>").text("マップ"))
+            .append($("<th>").text("勝利数"))
+            .append($("<th>").text("敗北数"))
+            .append($("<th>").text("引分数"))
+            .append($("<th>").text("勝率(%)"))
+        )
+    );
+    var tbody = $("<tbody>");
+    filtered_map_list.forEach(m => {
+        if (result[m].win != 0 || result[m].lose != 0 || result[m].draw != 0) {
+            tbody.append(
+                $("<tr>")
+                .append($("<th>").text(String(m)))
+                .append($("<th>").text(String(result[m].win)))
+                .append($("<th>").text(String(result[m].lose)))
+                .append($("<th>").text(String(result[m].draw)))
+                .append($("<th>").text(String(result[m].rate)))
+            );
+        }
+    });
+
+    $("#map").append(tbody);
+    table = $("#map").DataTable({
+        language: datatable_ja,
+        lengthChange: false,
+        searching: false,
+        info: false,
+        paging: false,
+        order: [[4, "desc"]]
+    });
+}
+
+function drawMapCond() {
+    initResult();
+    $("#site-menu .dropdown-item").removeClass("active");
+    $("#select-map-item").addClass("active");
+
+    $("#analysis-area").append(
+        $("<div>", {
+            class: "row form-group"
+        }).css("margin-bottom", 0).append(
+            $("<label>", {
+                class: "col-form-label col-xs-3",
+                text: "期間："
+            })
+        ).append(
+            $("<div>", {
+                class: "col-xs-4"
+            }).append(
+                $("<input>", {
+                    class: "form-control",
+                    id: "date-input-start",
+                    type: "date",
+                    value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
+                })
+            )
+        ).append(
+            $("<div>", {
+                class: "col-form-label col-xs-1"
+            }).append(
+                $("<p>", {
+                    class: "form-control-static",
+                    text: "～"
+                })
+            )
+        ).append(
+            $("<div>", {
+                class: "col-xs-4"
+            }).append(
+                $("<input>", {
+                    class: "form-control",
+                    id: "date-input-end",
+                    type: "date",
+                    value: data.game.map(g => g.date).reduce((a, b) => a > b ? a : b)
+                })
+            )
+        )
+    );
+
+    $("<div>", {
+        class: "row",
+        id: "map-result"
+    }).appendTo("#analysis-area");
+    drawMapAnalysis(); // 全期間で表示
+
+    $("#date-input-start").on("change", function() {
+        drawMapAnalysis();
+    });
+    $("#date-input-end").on("change", function() {
+        drawMapAnalysis();
+    });
+}
+
 function drawBombAnalysis() {
     $("#bomb-result").empty();
     if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
@@ -104,17 +253,98 @@ function drawBombAnalysis() {
         paging: false,
         order: [[1, "asc"], [4, "desc"]]
     });
-    table.on("draw", function() {
-        $("#bomb tbody tr th").on("dblclick", function() { // ダブルクリックで検索欄にコピー
-            table.search($(this).text()).draw();
-        });
-    });
 }
 
 function drawBombCond() {
     initResult();
     $("#site-menu .dropdown-item").removeClass("active");
     $("#select-bomb-item").addClass("active");
+
+    $("#analysis-area").append(
+        $("<div>", {
+            class: "row form-group"
+        }).css("margin-bottom", 0).append(
+            $("<label>", {
+                class: "col-form-label col-xs-3",
+                text: "期間："
+            })
+        ).append(
+            $("<div>", {
+                class: "col-xs-4"
+            }).append(
+                $("<input>", {
+                    class: "form-control",
+                    id: "date-input-start",
+                    type: "date",
+                    value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
+                })
+            )
+        ).append(
+            $("<div>", {
+                class: "col-form-label col-xs-1"
+            }).append(
+                $("<p>", {
+                    class: "form-control-static",
+                    text: "～"
+                })
+            )
+        ).append(
+            $("<div>", {
+                class: "col-xs-4"
+            }).append(
+                $("<input>", {
+                    class: "form-control",
+                    id: "date-input-end",
+                    type: "date",
+                    value: data.game.map(g => g.date).reduce((a, b) => a > b ? a : b)
+                })
+            )
+        )
+    ).append(
+        $("<div>", {
+            class: "row form-group"
+        }).append(
+            $("<label>", {
+                class: "col-form-label col-xs-3",
+                text: "マップ："
+            })
+        ).append(
+            $("<div>", {
+                class: "col-xs-9"
+            }).append(
+                $("<select>", {
+                    class: "form-control",
+                    id: "map-select",
+                    style: "vertical-align: middle;"
+                })
+            )
+        )
+    );
+    map_list.forEach(m => {
+        $("<option>").text(m).appendTo("#map-select");
+    });
+
+    $("<div>", {
+        class: "row",
+        id: "bomb-result"
+    }).appendTo("#analysis-area");
+    drawBombAnalysis(); // 全期間で表示
+
+    $("#date-input-start").on("change", function() {
+        drawBombAnalysis();
+    });
+    $("#date-input-end").on("change", function() {
+        drawBombAnalysis();
+    });
+    $("#map-select").on("change", function() {
+        drawBombAnalysis();
+    });
+}
+
+function drawKdCond() {
+    initResult();
+    $("#site-menu .dropdown-item").removeClass("active");
+    $("#select-kd-item").addClass("active");
 
     $("#analysis-area").append(
         $("<div>", {
@@ -342,7 +572,7 @@ function drawScoreTable(word) {
     var tbody = $("<tbody>");
     data.score.forEach(s => {
         tbody.append(
-            $("<tr>").addClass(s.team == "Excelsior Gaming" ? "table-info" : "table-light")
+            $("<tr>").addClass(s.team == "Excelsior Gaming" ? "table-info" : "")
             .append($("<th>").text(String(s.game_id)))
             .append($("<th>").text(String(s.team)))
             .append($("<th>").text(String(s.uplayid)))
@@ -411,8 +641,14 @@ $(function() {
     }).on("dragover", function() {
         return false;
     });
+    $("#select-map-item").on("click", function() {
+        drawMapCond();
+    });
     $("#select-bomb-item").on("click", function() {
         drawBombCond();
+    });
+    $("#select-kd-item").on("click", function() {
+        drawKdCond();
     });
     $("#select-game-item").on("click", function() {
         drawGameTable();
