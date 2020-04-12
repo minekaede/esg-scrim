@@ -3,6 +3,7 @@ var table; // 表示中の表
 
 function drawMapAnalysis() {
     $("#map-result").empty();
+    $("#map-info").empty();
     if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
         $("#map-result").append(
             $("<p>", {
@@ -169,6 +170,7 @@ function drawMapCond() {
 
 function drawBombAnalysis() {
     $("#bomb-result").empty();
+    $("#bomb-info").empty();
     if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
         $("#bomb-result").append(
             $("<p>", {
