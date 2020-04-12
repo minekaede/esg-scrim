@@ -382,7 +382,7 @@ function initResult() {
 
 function loadResult(text) {
     $("#dd-panel").hide();
-    $("#table-menu").show();
+    $("#table-menu").css("visibility", "visible");
     data = makeDict(text);
     drawGameTable();
 }
