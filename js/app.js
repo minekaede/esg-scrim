@@ -90,16 +90,12 @@ function drawMapAnalysis() {
         order: [[5, "desc"]]
     });
 
-    $("#analysis-area").append(
+    $("#map-info").append(
         $("<div>", {
-            class: "row"
-        }).css("margin-top", 10).append(
-            $("<div>", {
-                class: "alert alert-info",
-                role: "info",
-                html: "※ <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
-            })
-        )
+            class: "alert alert-info",
+            role: "info",
+            html: "※ <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
+        }).css("margin-top", 10)
     );
 }
 
@@ -150,10 +146,17 @@ function drawMapCond() {
         )
     );
 
-    $("<div>", {
-        class: "row",
-        id: "map-result"
-    }).appendTo("#analysis-area");
+    $("#analysis-area").append(
+        $("<div>", {
+            class: "row",
+            id: "map-result"
+        })
+    ).append(
+        $("<div>", {
+            class: "row",
+            id: "map-info"
+        })
+    );
     drawMapAnalysis(); // 全期間で表示
 
     $("#date-input-start").on("change", function() {
@@ -284,16 +287,12 @@ function drawBombAnalysis() {
         order: [[1, "asc"], [6, "desc"]]
     });
 
-    $("#analysis-area").append(
+    $("#bomb-info").append(
         $("<div>", {
-            class: "row"
-        }).css("margin-top", 10).append(
-            $("<div>", {
-                class: "alert alert-info",
-                role: "info",
-                html: "※1 <strong>ピック率(%)</strong>は攻防ごとに算出<br>※2 <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
-            })
-        )
+            class: "alert alert-info",
+            role: "info",
+            html: "※1 <strong>ピック率(%)</strong>は攻防ごとに算出<br>※2 <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
+        }).css("margin-top", 10)
     );
 }
 
@@ -366,10 +365,17 @@ function drawBombCond() {
         $("<option>").text(m).appendTo("#map-select");
     });
 
-    $("<div>", {
-        class: "row",
-        id: "bomb-result"
-    }).appendTo("#analysis-area");
+    $("#analysis-area").append(
+        $("<div>", {
+            class: "row",
+            id: "bomb-result"
+        })
+    ).append(
+        $("<div>", {
+            class: "row",
+            id: "bomb-info"
+        })
+    );
     drawBombAnalysis(); // 全期間で表示
 
     $("#date-input-start").on("change", function() {
