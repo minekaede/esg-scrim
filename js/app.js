@@ -243,7 +243,7 @@ function drawBombAnalysis() {
                 .append($("<th>").text(String("防")))
                 .append($("<th>").text(String(result[p].defense.win)))
                 .append($("<th>").text(String(result[p].defense.lose)))
-                .append($("<th>").text(String(result[p].offense.win + result[p].offense.lose)))
+                .append($("<th>").text(String(result[p].defense.win + result[p].defense.lose)))
                 .append($("<th>").text(String(result[p].defense.rate)))
             );
         }
