@@ -61,6 +61,7 @@ function drawMapAnalysis() {
             .append($("<th>").text("勝利数"))
             .append($("<th>").text("敗北数"))
             .append($("<th>").text("引分数"))
+            .append($("<th>").text("合計"))
             .append($("<th>").text("勝率(%)"))
         )
     );
@@ -73,6 +74,7 @@ function drawMapAnalysis() {
                 .append($("<th>").text(String(result[m].win)))
                 .append($("<th>").text(String(result[m].lose)))
                 .append($("<th>").text(String(result[m].draw)))
+                .append($("<th>").text(String(result[m].win + result[m].lose + result[m].draw)))
                 .append($("<th>").text(String(result[m].rate)))
             );
         }
@@ -85,7 +87,7 @@ function drawMapAnalysis() {
         searching: false,
         info: false,
         paging: false,
-        order: [[4, "desc"]]
+        order: [[5, "desc"]]
     });
 }
 
@@ -217,6 +219,7 @@ function drawBombAnalysis() {
             .append($("<th>").text("攻防"))
             .append($("<th>").text("勝利数"))
             .append($("<th>").text("敗北数"))
+            .append($("<th>").text("合計"))
             .append($("<th>").text("勝率(%)"))
         )
     );
@@ -229,6 +232,7 @@ function drawBombAnalysis() {
                 .append($("<th>").text(String("攻")))
                 .append($("<th>").text(String(result[p].offense.win)))
                 .append($("<th>").text(String(result[p].offense.lose)))
+                .append($("<th>").text(String(result[p].offense.win + result[p].offense.lose)))
                 .append($("<th>").text(String(result[p].offense.rate)))
             );
         }
@@ -251,7 +255,7 @@ function drawBombAnalysis() {
         searching: false,
         info: false,
         paging: false,
-        order: [[1, "asc"], [4, "desc"]]
+        order: [[1, "asc"], [5, "desc"]]
     });
 }
 
