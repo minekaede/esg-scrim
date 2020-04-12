@@ -116,7 +116,7 @@ function drawBombCond() {
     $("#analysis-area").append(
         $("<div>", {
             class: "row form-group"
-        }).append(
+        }).css("margin-bottom", 0).append(
             $("<label>", {
                 class: "col-form-label col-xs-3",
                 text: "期間："
