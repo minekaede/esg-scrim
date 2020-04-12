@@ -92,10 +92,14 @@ function drawMapAnalysis() {
 
     $("#analysis-area").append(
         $("<div>", {
-            class: "row alert alert-info",
-            role: "info",
-            html: "※ <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
-        }).css("margin-top", 10)
+            class: "row"
+        }).css("margin-top", 10).append(
+            $("<div>", {
+                class: "alert alert-info",
+                role: "info",
+                html: "※ <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
+            })
+        )
     );
 }
 
@@ -282,10 +286,14 @@ function drawBombAnalysis() {
 
     $("#analysis-area").append(
         $("<div>", {
-            class: "row alert alert-info",
-            role: "info",
-            html: "※1 <strong>ピック率(%)</strong>は攻防ごとに算出<br>※2 <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
-        }).css("margin-top", 10)
+            class: "row"
+        }).css("margin-top", 10).append(
+            $("<div>", {
+                class: "alert alert-info",
+                role: "info",
+                html: "※1 <strong>ピック率(%)</strong>は攻防ごとに算出<br>※2 <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
+            })
+        )
     );
 }
 
