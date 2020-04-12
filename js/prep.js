@@ -1,6 +1,6 @@
 var map_list; // config.jsonから取得するマップリスト(Googleフォームの順番と同じになっている必要あり)
 var datatable_ja; // DataTableの日本語データ
-$.getJSON("config.json", function(data) {
+$.getJSON("js/config.json", function(data) {
     map_list = data.map;
     datatable_ja = data.datatable.ja;
 });
