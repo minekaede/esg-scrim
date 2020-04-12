@@ -45,7 +45,7 @@ function drawMapAnalysis() {
         result[g.map][g.result]++;
     });
     filtered_map_list.forEach(m => {
-        result[m].rate = (100 * result[m].win / (result[m].win + result[m].lose)).toFixed(1);
+        result[m].winRate = (100 * result[m].win / (result[m].win + result[m].lose)).toFixed(1);
     });
 
     $("<table>", {
@@ -75,7 +75,7 @@ function drawMapAnalysis() {
                 .append($("<th>").text(String(result[m].lose)))
                 .append($("<th>").text(String(result[m].draw)))
                 .append($("<th>").text(String(result[m].win + result[m].lose + result[m].draw)))
-                .append($("<th>").text(String(result[m].rate)))
+                .append($("<th>").text(String(result[m].winRate)))
             );
         }
     });
@@ -192,26 +192,36 @@ function drawBombAnalysis() {
         );
         return;
     }
-    var result = {};
+    var result = {
+        total: {
+            offense: 0,
+            defense: 0
+        }
+    };
     var point_list = [...new Set(filtered_round.map(r => r.point))];
     point_list.forEach(p => {
         result[p] = {
             offense: {
                 win: 0,
-                lose: 0
+                lose: 0,
+                sum: 0
             },
             defense: {
                 win: 0,
-                lose: 0
+                lose: 0,
+                sum: 0
             }
         };
     });
     filtered_round.forEach(r => {
         result[r.point][r.od][r.wl]++;
+        result.total[r.od]++;
     });
     point_list.forEach(p => {
-        result[p].offense.rate = (100 * result[p].offense.win / (result[p].offense.win + result[p].offense.lose)).toFixed(1);
-        result[p].defense.rate = (100 * result[p].defense.win / (result[p].defense.win + result[p].defense.lose)).toFixed(1);
+        result[p].offense.pickRate = (100 * (result[p].offense.win + result[p].offense.lose) / result.total.offense).toFixed(1);
+        result[p].defense.pickRate = (100 * (result[p].defense.win + result[p].defense.lose) / result.total.defense).toFixed(1);
+        result[p].offense.winRate = (100 * result[p].offense.win / (result[p].offense.win + result[p].offense.lose)).toFixed(1);
+        result[p].defense.winRate = (100 * result[p].defense.win / (result[p].defense.win + result[p].defense.lose)).toFixed(1);
     });
 
     $("<table>", {
@@ -228,6 +238,7 @@ function drawBombAnalysis() {
             .append($("<th>").text("勝利数"))
             .append($("<th>").text("敗北数"))
             .append($("<th>").text("合計"))
+            .append($("<th>").text("ピック率(%)"))
             .append($("<th>").html('勝率(%)<sup class="text-info">※</sup>'))
         )
     );
@@ -241,7 +252,8 @@ function drawBombAnalysis() {
                 .append($("<th>").text(String(result[p].offense.win)))
                 .append($("<th>").text(String(result[p].offense.lose)))
                 .append($("<th>").text(String(result[p].offense.win + result[p].offense.lose)))
-                .append($("<th>").text(String(result[p].offense.rate)))
+                .append($("<th>").text(String(result[p].offense.pickRate)))
+                .append($("<th>").text(String(result[p].offense.winRate)))
             );
         }
         if (result[p].defense.win != 0 || result[p].defense.lose != 0) {
@@ -252,7 +264,8 @@ function drawBombAnalysis() {
                 .append($("<th>").text(String(result[p].defense.win)))
                 .append($("<th>").text(String(result[p].defense.lose)))
                 .append($("<th>").text(String(result[p].defense.win + result[p].defense.lose)))
-                .append($("<th>").text(String(result[p].defense.rate)))
+                .append($("<th>").text(String(result[p].defense.pickRate)))
+                .append($("<th>").text(String(result[p].defense.winRate)))
             );
         }
     });
@@ -264,7 +277,7 @@ function drawBombAnalysis() {
         searching: false,
         info: false,
         paging: false,
-        order: [[1, "asc"], [5, "desc"]]
+        order: [[1, "asc"], [6, "desc"]]
     });
 
     $("#bomb-result").append(
