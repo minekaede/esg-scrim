@@ -46,7 +46,11 @@ function drawMapAnalysis() {
         result[g.map][g.result]++;
     });
     filtered_map_list.forEach(m => {
-        result[m].winRate = (100 * result[m].win / (result[m].win + result[m].lose)).toFixed(1);
+        if (result[m].win != 0 || result[m].lose != 0) {
+            result[m].winRate = (100 * result[m].win / (result[m].win + result[m].lose)).toFixed(1);
+        } else {
+            result[m].winRate = (0).toFixed(1);
+        }
     });
 
     $("<table>", {
