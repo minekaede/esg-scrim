@@ -220,7 +220,7 @@ function drawBombAnalysis() {
             .append($("<th>").text("勝利数"))
             .append($("<th>").text("敗北数"))
             .append($("<th>").text("合計"))
-            .append($("<th>").text("勝率(%)"))
+            .append($("<th>").html("勝率(%)<sup>[1]</sup>"))
         )
     );
     var tbody = $("<tbody>");
@@ -258,6 +258,14 @@ function drawBombAnalysis() {
         paging: false,
         order: [[1, "asc"], [5, "desc"]]
     });
+
+    $("#bomb-result").append(
+        $("<div>", {
+            class: "alert alert-info",
+            role: "info",
+            html: "[1]&nbsp;&nbsp;<strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
+        }).css("margin-top", 10)
+    );
 }
 
 function drawBombCond() {
