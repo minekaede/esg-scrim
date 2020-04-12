@@ -113,6 +113,9 @@ function drawBombAnalysis() {
 
 function drawBombCond() {
     initResult();
+    $("#site-menu .dropdown-item").removeClass("active");
+    $("#select-bomb-item").addClass("active");
+
     $("#analysis-area").append(
         $("<div>", {
             class: "row form-group"
@@ -197,6 +200,9 @@ function drawBombCond() {
 function drawGameTable(word) {
     /* #table-area内に表を設置 */
     initResult();
+    $("#site-menu .dropdown-item").removeClass("active");
+    $("#select-game-item").addClass("active");
+
     $("<table>", {
         class: "table table-bordered table-hover",
         id: "game",
@@ -260,6 +266,9 @@ function drawGameTable(word) {
 function drawRoundTable(word) {
     /* #table-area内に表を設置 */
     initResult();
+    $("#site-menu .dropdown-item").removeClass("active");
+    $("#select-round-item").addClass("active");
+
     $("<table>", {
         class: "table table-bordered table-hover",
         id: "round",
@@ -309,6 +318,9 @@ function drawRoundTable(word) {
 function drawScoreTable(word) {
     /* #table-area内に表を設置 */
     initResult();
+    $("#site-menu .dropdown-item").removeClass("active");
+    $("#select-score-item").addClass("active");
+
     $("<table>", {
         class: "table table-bordered table-hover",
         id: "score",
@@ -370,6 +382,7 @@ function initResult() {
 
 function loadResult(text) {
     $("#dd-panel").hide();
+    $("#table-menu").show();
     data = makeDict(text);
     drawGameTable();
 }
