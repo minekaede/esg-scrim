@@ -51,8 +51,8 @@ function drawBombAnalysis() {
         result[r.point][r.od][r.wl]++;
     });
     point_list.forEach(p => {
-        result[p].offense.rate = Math.round(100 * result[p].offense.win / (result[p].offense.win + result[p].offense.lose)) / 100;
-        result[p].defense.rate = Math.round(100 * result[p].defense.win / (result[p].defense.win + result[p].defense.lose)) / 100;
+        result[p].offense.rate = (100 * result[p].offense.win / (result[p].offense.win + result[p].offense.lose)).toFixed(1);
+        result[p].defense.rate = (100 * result[p].defense.win / (result[p].defense.win + result[p].defense.lose)).toFixed(1);
     });
 
     $("<table>", {
@@ -68,7 +68,7 @@ function drawBombAnalysis() {
             .append($("<th>").text("攻防"))
             .append($("<th>").text("勝利数"))
             .append($("<th>").text("敗北数"))
-            .append($("<th>").text("勝率"))
+            .append($("<th>").text("勝率(%)"))
         )
     );
     var tbody = $("<tbody>");
