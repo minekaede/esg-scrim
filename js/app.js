@@ -238,8 +238,8 @@ function drawBombAnalysis() {
             .append($("<th>").text("勝利数"))
             .append($("<th>").text("敗北数"))
             .append($("<th>").text("合計"))
-            .append($("<th>").text("ピック率(%)"))
-            .append($("<th>").html('勝率(%)<sup class="text-info">※</sup>'))
+            .append($("<th>").html('ピック率(%)<sup class="text-info">※1</sup>'))
+            .append($("<th>").html('勝率(%)<sup class="text-info">※2</sup>'))
         )
     );
     var tbody = $("<tbody>");
@@ -284,7 +284,7 @@ function drawBombAnalysis() {
         $("<div>", {
             class: "alert alert-info",
             role: "info",
-            html: "※ <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
+            html: "※1 <strong>ピック率(%)</strong>は攻防ごとに算出<br>※2 <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
         }).css("margin-top", 10)
     );
 }
