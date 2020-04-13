@@ -395,11 +395,16 @@ function drawBombCond() {
     });
 }
 
+function drawKdAnalysis() {
+    return;
+}
+
 function drawKdCond() {
     initResult();
     $("#site-menu .dropdown-item").removeClass("active");
     $("#select-kd-item").addClass("active");
 
+    var filtered_game = data.game.filter(g => data.score.map(s => s.game_id).includes(g.game_id));
     $("#analysis-area").append(
         $("<div>", {
             class: "row form-group"
@@ -416,7 +421,7 @@ function drawKdCond() {
                     class: "form-control",
                     id: "date-input-start",
                     type: "date",
-                    value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
+                    value: filtered_game.map(g => g.date).reduce((a, b) => a < b ? a : b)
                 })
             )
         ).append(
@@ -436,7 +441,7 @@ function drawKdCond() {
                     class: "form-control",
                     id: "date-input-end",
                     type: "date",
-                    value: data.game.map(g => g.date).reduce((a, b) => a > b ? a : b)
+                    value: filtered_game.map(g => g.date).reduce((a, b) => a > b ? a : b)
                 })
             )
         )
@@ -460,24 +465,32 @@ function drawKdCond() {
             )
         )
     );
+    $("<option>").text("全マップ").appendTo("#map-select");
     map_list.forEach(m => {
         $("<option>").text(m).appendTo("#map-select");
     });
 
-    $("<div>", {
-        class: "row",
-        id: "bomb-result"
-    }).appendTo("#analysis-area");
-    drawBombAnalysis(); // 全期間で表示
+    $("#analysis-area").append(
+        $("<div>", {
+            class: "row",
+            id: "kd-result"
+        })
+    ).append(
+        $("<div>", {
+            class: "row",
+            id: "kd-info"
+        })
+    );
+    drawKdAnalysis(); // 全期間で表示
 
     $("#date-input-start").on("change", function() {
-        drawBombAnalysis();
+        drawKdAnalysis();
     });
     $("#date-input-end").on("change", function() {
-        drawBombAnalysis();
+        drawKdAnalysis();
     });
     $("#map-select").on("change", function() {
-        drawBombAnalysis();
+        drawKdAnalysis();
     });
 }
 
@@ -626,7 +639,7 @@ function drawScoreTable(word) {
     var tbody = $("<tbody>");
     data.score.forEach(s => {
         tbody.append(
-            $("<tr>").addClass(s.team == "Excelsior Gaming" ? "table-info" : "")
+            $("<tr>").addClass(s.team == our_team ? "table-info" : "")
             .append($("<th>").text(String(s.game_id)))
             .append($("<th>").text(String(s.team)))
             .append($("<th>").text(String(s.uplayid)))

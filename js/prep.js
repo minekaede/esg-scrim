@@ -1,8 +1,10 @@
 var map_list; // config.jsonから取得するマップリスト(Googleフォームの順番と同じになっている必要あり)
 var datatable_ja; // DataTableの日本語データ
+var our_team; // チーム名の文字列
 $.getJSON("js/config.json", function(data) {
     map_list = data.map;
     datatable_ja = data.datatable.ja;
+    our_team = data.team;
 });
 
 function makeDict(text) { // csvテキストを処理して連想配列を返す
@@ -81,7 +83,7 @@ function makeDict(text) { // csvテキストを処理して連想配列を返す
                 var score_dict = {};
                 score_dict.game_id = id;
                 if (0 <= i && i <= 4) {
-                    score_dict.team = "Excelsior Gaming";
+                    score_dict.team = our_team;
                 } else if (5 <= i && i <= 9) {
                     score_dict.team = row[2];
                 } else {
