@@ -434,7 +434,7 @@ function drawKdAnalysis() {
     }
     var filtered_score = data.score.filter(s => filtered_game.map(g => g.game_id).includes(s.game_id) && s.team == our_team);
     filtered_score.forEach(s => {
-        s.member = s.uplayid; // 同一人物をまとめるなら，ここでs.memberを書き換える
+        s.member = our_alias[s.uplayid] ? our_alias[s.uplayid] : uplayid;
     });
 
     var result = {};

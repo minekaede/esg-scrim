@@ -1,10 +1,12 @@
 var map_list; // config.jsonから取得するマップリスト(Googleフォームの順番と同じになっている必要あり)
 var datatable_ja; // DataTableの日本語データ
 var our_team; // チーム名の文字列
+var our_alias; // チームメンバーの別名
 $.getJSON("js/config.json", function(data) {
     map_list = data.map;
     datatable_ja = data.datatable.ja;
-    our_team = data.team;
+    our_team = data.team.name;
+    our_alias = data.team.alias;
 });
 
 function makeDict(text) { // csvテキストを処理して連想配列を返す

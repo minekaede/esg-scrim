@@ -33,5 +33,17 @@
             }
         }
     },
-    "team": "Excelsior Gaming"
+    "team": {
+        "name": "Excelsior Gaming",
+        "alias": {
+            "Dragon._EsG": "Dragon.EsG",
+            "Mozukin.EsG": "Mozuku.EsG",
+            "UCHUU_KUN": "Dragon.EsG",
+            "Unknown.EsG": "Dragon.EsG",
+            "whitebullet.EsG": "sprwhite.EsG",
+            "whitebullet666": "sprwhite.EsG",
+            "whitebullet777": "sprwhite.EsG",
+            "XXx_IKIRITO_xXX": "Mozuku.EsG"
+        }
+    }
 }
