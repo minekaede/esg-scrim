@@ -67,7 +67,7 @@ function drawMapAnalysis() {
             .append($("<th>").text("敗北数"))
             .append($("<th>").text("引分数"))
             .append($("<th>").text("合計"))
-            .append($("<th>").html('勝率(%)<sup class="text-info">※</sup>'))
+            .append($("<th>").html('勝率[%]<sup class="text-info">※</sup>'))
         )
     );
     var tbody = $("<tbody>");
@@ -99,7 +99,7 @@ function drawMapAnalysis() {
         $("<div>", {
             class: "alert alert-info",
             role: "info",
-            html: "※ <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
+            html: "※ <strong>勝率[%]</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
         }).css("margin-top", 10)
     );
 }
@@ -251,8 +251,8 @@ function drawBombAnalysis() {
             .append($("<th>").text("勝利数"))
             .append($("<th>").text("敗北数"))
             .append($("<th>").text("合計"))
-            .append($("<th>").html('ピック率(%)<sup class="text-info">※1</sup>'))
-            .append($("<th>").html('勝率(%)<sup class="text-info">※2</sup>'))
+            .append($("<th>").html('ピック率[%]<sup class="text-info">※1</sup>'))
+            .append($("<th>").html('勝率[%]<sup class="text-info">※2</sup>'))
         )
     );
     var tbody = $("<tbody>");
@@ -297,7 +297,7 @@ function drawBombAnalysis() {
         $("<div>", {
             class: "alert alert-info",
             role: "info",
-            html: "※1 <strong>ピック率(%)</strong>は攻防ごとに算出<br>※2 <strong>勝率(%)</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
+            html: "※1 <strong>ピック率[%]</strong>は攻防ごとに算出<br>※2 <strong>勝率[%]</strong> = 100 × 勝利数 ÷ (勝利数 + 敗北数)"
         }).css("margin-top", 10)
     );
 }
@@ -396,7 +396,115 @@ function drawBombCond() {
 }
 
 function drawKdAnalysis() {
-    return;
+    $("#kd-result").empty();
+    $("#kd-info").empty();
+    if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
+        $("#kd-result").append(
+            $("<p>", {
+                class: "text-danger",
+                text: " 期間が設定されていません"
+            }).prepend(
+                $("<span>", {
+                    class: "badge badge-danger",
+                    text: "Error"
+                })
+            )
+        );
+        return;
+    }
+
+    var filtered_game = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end").val());
+    if ($("#map-select").val() != "全マップ") {
+        filtered_game = filtered_game.filter(g => g.map == $("#map-select").val());
+    }
+
+    if (filtered_game.length == 0) {
+        $("#kd-result").append(
+            $("<p>", {
+                class: "text-danger",
+                text: " 該当するデータがありません"
+            }).prepend(
+                $("<span>", {
+                    class: "badge badge-danger",
+                    text: "Error"
+                })
+            )
+        );
+        return;
+    }
+    var filtered_score = data.score.filter(s => filtered_game.map(g => g.game_id).includes(s.game_id));
+    filtered_score.forEach(s => {
+        s.member = s.uplayid; // 同一人物をまとめるなら，ここでs.memberを書き換える
+    });
+
+    var result = {};
+    var member_list = [...new Set(filtered_score.map(s => s.member))];
+    member_list.forEach(m => {
+        result[m] = {
+            kill: 0,
+            assist: 0,
+            death: 0
+        };
+    });
+    filtered_score.forEach(s => {
+        result[s.member].kill += s.kill;
+        result[s.member].assist += s.assist;
+        result[s.member].death += s.death;
+    });
+    member_list.forEach(m => {
+        result[m].kd = (result[m].kill / result[m].death).toFixed(3);
+        result[m].kdrate = (100 * result[m].kill / (result[m].kill + result[m].death)).toFixed(1);
+    });
+
+    $("<table>", {
+        class: "table table-bordered table-hover",
+        id: "kd",
+        style: "width:100%;"
+    }).appendTo("#kd-result");
+
+    $("#kd").append(
+        $("<thead>").addClass("thead-dark").append(
+            $("<tr>")
+            .append($("<th>").text("名前"))
+            .append($("<th>").text("キル数"))
+            .append($("<th>").text("アシスト数"))
+            .append($("<th>").text("デス数"))
+            .append($("<th>").text("K/D"))
+            .append($("<th>").html('KD[%]<sup class="text-info">※</sup>'))
+        )
+    );
+    var tbody = $("<tbody>");
+    member_list.forEach(m => {
+        if (result[m].kill != 0 || result[m].death != 0) {
+            tbody.append(
+                $("<tr>")
+                .append($("<th>").text(String(m)))
+                .append($("<th>").text(String(result[m].kill)))
+                .append($("<th>").text(String(result[m].assist)))
+                .append($("<th>").text(String(result[m].death)))
+                .append($("<th>").text(String(result[m].kd)))
+                .append($("<th>").text(String(result[m].kdrate)))
+            );
+        }
+    });
+
+    $("#kd").append(tbody);
+    table = $("#kd").DataTable({
+        language: datatable_ja,
+        lengthChange: false,
+        searching: false,
+        info: false,
+        paging: false,
+        order: [[0, "asc"]]
+    });
+
+    $("#kd-info").append(
+        $("<div>", {
+            class: "alert alert-info",
+            role: "info",
+            html: "※ <strong>KD[%]</strong> = 100 × キル数 ÷ (キル数 + デス数)"
+        }).css("margin-top", 10)
+    );
 }
 
 function drawKdCond() {
