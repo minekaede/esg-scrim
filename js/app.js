@@ -602,6 +602,236 @@ function drawKdCond() {
     });
 }
 
+function drawBanAnalysis() {
+    $("#ban-result").empty();
+    $("#ban-info").empty();
+    if ($("#date-input-start").val() == "" || $("#date-input-end").val() == "") {
+        $("#ban-result").append(
+            $("<p>", {
+                class: "text-danger",
+                text: " 期間が設定されていません"
+            }).prepend(
+                $("<span>", {
+                    class: "badge badge-danger",
+                    text: "Error"
+                })
+            )
+        );
+        return;
+    }
+
+    var filtered_game = data.game.filter(g => $("#date-input-start").val() <= g.date && g.date <= $("#date-input-end").val());
+    if ($("#map-select").val() != "全マップ") {
+        filtered_game = filtered_game.filter(g => g.map == $("#map-select").val());
+    }
+
+    if (filtered_game.length == 0) {
+        $("#ban-result").append(
+            $("<p>", {
+                class: "text-danger",
+                text: " 該当するデータがありません"
+            }).prepend(
+                $("<span>", {
+                    class: "badge badge-danger",
+                    text: "Error"
+                })
+            )
+        );
+        return;
+    }
+
+    var result = {};
+    var member_list = [...new Set(filtered_score.map(s => s.member))];
+    member_list.forEach(m => {
+        result[m] = {
+            kill: 0,
+            assist: 0,
+            death: 0
+        };
+    });
+    filtered_score.forEach(s => {
+        result[s.member].kill += s.kill;
+        result[s.member].assist += s.assist;
+        result[s.member].death += s.death;
+    });
+    member_list.forEach(m => {
+        result[m].kd = (result[m].kill / result[m].death).toFixed(3);
+        result[m].kdrate = (100 * result[m].kill / (result[m].kill + result[m].death)).toFixed(1);
+    });
+
+    $("<table>", {
+        class: "table table-bordered table-hover",
+        id: "kd",
+        style: "width:100%;"
+    }).appendTo("#kd-result");
+
+    $("#kd").append(
+        $("<thead>").addClass("thead-dark").append(
+            $("<tr>")
+            .append($("<th>").text("名前"))
+            .append($("<th>").text("キル数"))
+            .append($("<th>").text("アシスト数"))
+            .append($("<th>").text("デス数"))
+            .append($("<th>").text("K/D"))
+            .append($("<th>").html('KD[%]<sup class="text-info">※</sup>'))
+        )
+    );
+    var tbody = $("<tbody>");
+    member_list.forEach(m => {
+        if (result[m].kill != 0 || result[m].death != 0) {
+            tbody.append(
+                $("<tr>")
+                .append($("<th>").text(String(m)))
+                .append($("<th>").text(String(result[m].kill)))
+                .append($("<th>").text(String(result[m].assist)))
+                .append($("<th>").text(String(result[m].death)))
+                .append($("<th>").text(String(result[m].kd)))
+                .append($("<th>").text(String(result[m].kdrate)))
+            );
+        }
+    });
+
+    $("#kd").append(tbody);
+    table = $("#kd").DataTable({
+        language: datatable_ja,
+        lengthChange: false,
+        searching: false,
+        info: false,
+        paging: false,
+        order: [[0, "asc"]]
+    });
+
+    $("#kd-info").append(
+        $("<div>", {
+            class: "alert alert-info",
+            role: "info",
+            html: "※ <strong>KD[%]</strong> = 100 × キル数 ÷ (キル数 + デス数)"
+        }).css("margin-top", 10)
+    );
+}
+
+function drawBanCond() {
+    initResult();
+    $("#site-menu .dropdown-item").removeClass("active");
+    $("#select-ban-item").addClass("active");
+
+    $("#analysis-area").append(
+        $("<div>", {
+            class: "row form-group"
+        }).css("margin-bottom", 0).append(
+            $("<label>", {
+                class: "col-form-label col-xs-3",
+                text: "期間："
+            })
+        ).append(
+            $("<div>", {
+                class: "col-xs-4"
+            }).append(
+                $("<input>", {
+                    class: "form-control",
+                    id: "date-input-start",
+                    type: "date",
+                    value: data.game.map(g => g.date).reduce((a, b) => a < b ? a : b)
+                })
+            )
+        ).append(
+            $("<div>", {
+                class: "col-form-label col-xs-1"
+            }).append(
+                $("<p>", {
+                    class: "form-control-static",
+                    text: "～"
+                })
+            )
+        ).append(
+            $("<div>", {
+                class: "col-xs-4"
+            }).append(
+                $("<input>", {
+                    class: "form-control",
+                    id: "date-input-end",
+                    type: "date",
+                    value: data.game.map(g => g.date).reduce((a, b) => a > b ? a : b)
+                })
+            )
+        )
+    ).append(
+        $("<div>", {
+            class: "row form-group"
+        }).append(
+            $("<label>", {
+                class: "col-form-label col-xs-3",
+                text: "マップ："
+            })
+        ).append(
+            $("<div>", {
+                class: "col-xs-9"
+            }).append(
+                $("<select>", {
+                    class: "form-control",
+                    id: "map-select",
+                    style: "vertical-align: middle;"
+                })
+            )
+        )
+    ).append(
+        $("<div>", {
+            class: "row form-group"
+        }).append(
+            $("<label>", {
+                class: "col-form-label col-xs-8",
+                text: "オペレーターBAN："
+            })
+        ).append(
+            $("<div>", {
+                class: "col-xs-4"
+            }).append(
+                $("<select>", {
+                    class: "form-control",
+                    id: "ban-select",
+                    style: "vertical-align: middle;"
+                })
+            )
+        )
+    );
+    $("<option>").text("全マップ").appendTo("#map-select");
+    map_list.forEach(m => {
+        $("<option>").text(m).appendTo("#map-select");
+    });
+    $("#ban-select").append(
+        $("<option>").text("攻撃側(自)")
+    ).append(
+        $("<option>").text("防衛側(自)")
+    ).append(
+        $("<option>").text("攻撃側(相)")
+    ).append(
+        $("<option>").text("防衛側(相)")
+    );
+
+    $("#analysis-area").append(
+        $("<div>", {
+            class: "row",
+            id: "ban-result"
+        })
+    ).append(
+        $("<div>", {
+            class: "row",
+            id: "ban-info"
+        })
+    );
+    drawBanAnalysis(); // 全期間で表示
+
+    $("#date-input-start").on("change", function() {
+        drawBanAnalysis();
+    });
+    $("#date-input-end").on("change", function() {
+        drawBanAnalysis();
+    });
+    $("#map-select").on("change", function() {
+        drawBanAnalysis();
+    });
+}
+
 function drawGameTable(word) {
     /* #table-area内に表を設置 */
     initResult();
@@ -824,6 +1054,9 @@ $(function() {
     });
     $("#select-kd-item").on("click", function() {
         drawKdCond();
+    });
+    $("#select-ban-item").on("click", function() {
+        drawBanCond();
     });
     $("#select-game-item").on("click", function() {
         drawGameTable();
