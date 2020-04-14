@@ -1006,7 +1006,7 @@ function initResult() {
 }
 
 function loadResult(text) {
-    $("#dd-panel").hide();
+    $("#dd-card").hide();
     $("#table-menu").css("visibility", "visible");
     data = makeDict(text);
     drawGameTable();
