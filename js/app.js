@@ -624,7 +624,7 @@ function drawBanAnalysis() {
     if ($("#map-select").val() != "全マップ") {
         filtered_game = filtered_game.filter(g => g.map == $("#map-select").val());
     }
-    var ban_type = $("#ban-select")
+    var ban_type = $("#ban-select").val()
         .replace("攻撃側(自)", "offense_ban_own")
         .replace("防衛側(自)", "defense_ban_own")
         .replace("攻撃側(相)", "offense_ban_opponent")
