@@ -624,6 +624,11 @@ function drawBanAnalysis() {
     if ($("#map-select").val() != "全マップ") {
         filtered_game = filtered_game.filter(g => g.map == $("#map-select").val());
     }
+    var ban_type = $("#ban-select")
+        .replace("攻撃側(自)", "offense_ban_own")
+        .replace("防衛側(自)", "defense_ban_own")
+        .replace("攻撃側(相)", "offense_ban_opponent")
+        .replace("防衛側(相)", "defense_ban_opponent");
 
     if (filtered_game.length == 0) {
         $("#ban-result").append(
@@ -640,59 +645,49 @@ function drawBanAnalysis() {
         return;
     }
 
-    var result = {};
-    var member_list = [...new Set(filtered_score.map(s => s.member))];
-    member_list.forEach(m => {
-        result[m] = {
-            kill: 0,
-            assist: 0,
-            death: 0
+    var result = {
+        total: 0
+    };
+    var operator_list = [...new Set(filtered_game.map(g => g[ban_type]))];
+    operator_list.forEach(o => {
+        result[o] = {
+            sum: 0
         };
     });
-    filtered_score.forEach(s => {
-        result[s.member].kill += s.kill;
-        result[s.member].assist += s.assist;
-        result[s.member].death += s.death;
+    filtered_game.forEach(g => {
+        result[g[ban_type]].sum++;
+        result.total++;
     });
-    member_list.forEach(m => {
-        result[m].kd = (result[m].kill / result[m].death).toFixed(3);
-        result[m].kdrate = (100 * result[m].kill / (result[m].kill + result[m].death)).toFixed(1);
+    operator_list.forEach(o => {
+        result[o].rate = (100 * result[o].sum / result.total).toFixed(1);
     });
 
     $("<table>", {
         class: "table table-bordered table-hover",
-        id: "kd",
+        id: "ban",
         style: "width:100%;"
-    }).appendTo("#kd-result");
+    }).appendTo("#ban-result");
 
-    $("#kd").append(
+    $("#ban").append(
         $("<thead>").addClass("thead-dark").append(
             $("<tr>")
-            .append($("<th>").text("名前"))
-            .append($("<th>").text("キル数"))
-            .append($("<th>").text("アシスト数"))
-            .append($("<th>").text("デス数"))
-            .append($("<th>").text("K/D"))
-            .append($("<th>").html('KD[%]<sup class="text-info">※</sup>'))
+            .append($("<th>").text("オペレーター"))
+            .append($("<th>").text("BAN数"))
+            .append($("<th>").html('BAN率[%]'))
         )
     );
     var tbody = $("<tbody>");
-    member_list.forEach(m => {
-        if (result[m].kill != 0 || result[m].death != 0) {
-            tbody.append(
-                $("<tr>")
-                .append($("<th>").text(String(m)))
-                .append($("<th>").text(String(result[m].kill)))
-                .append($("<th>").text(String(result[m].assist)))
-                .append($("<th>").text(String(result[m].death)))
-                .append($("<th>").text(String(result[m].kd)))
-                .append($("<th>").text(String(result[m].kdrate)))
-            );
-        }
+    operator_list.forEach(o => {
+        tbody.append(
+            $("<tr>")
+            .append($("<th>").text(String(o)))
+            .append($("<th>").text(String(result[o].sum)))
+            .append($("<th>").text(String(result[o].total)))
+        );
     });
 
-    $("#kd").append(tbody);
-    table = $("#kd").DataTable({
+    $("#ban").append(tbody);
+    table = $("#ban").DataTable({
         language: datatable_ja,
         lengthChange: false,
         searching: false,
@@ -700,14 +695,6 @@ function drawBanAnalysis() {
         paging: false,
         order: [[0, "asc"]]
     });
-
-    $("#kd-info").append(
-        $("<div>", {
-            class: "alert alert-info",
-            role: "info",
-            html: "※ <strong>KD[%]</strong> = 100 × キル数 ÷ (キル数 + デス数)"
-        }).css("margin-top", 10)
-    );
 }
 
 function drawBanCond() {
@@ -828,6 +815,9 @@ function drawBanCond() {
         drawBanAnalysis();
     });
     $("#map-select").on("change", function() {
+        drawBanAnalysis();
+    });
+    $("#ban-select").on("change", function() {
         drawBanAnalysis();
     });
 }
