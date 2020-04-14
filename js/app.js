@@ -682,7 +682,7 @@ function drawBanAnalysis() {
             $("<tr>")
             .append($("<th>").text(String(o)))
             .append($("<th>").text(String(result[o].sum)))
-            .append($("<th>").text(String(result[o].total)))
+            .append($("<th>").text(String(result[o].rate)))
         );
     });
 
@@ -693,7 +693,7 @@ function drawBanAnalysis() {
         searching: false,
         info: false,
         paging: false,
-        order: [[0, "asc"]]
+        order: [[2, "desc"]]
     });
 }
 
